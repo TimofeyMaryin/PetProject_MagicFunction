@@ -25,7 +25,7 @@ class GetCatsDescInternetStatus {
 
     fun execute(internetStatus: String): String {
         return if (validateCurrentInternetStatus(internetStatus)) {
-            Companion.BASE_URL + internetStatus
+            BASE_URL + internetStatus
         } else {
             USER_ENTER_INCORRECT_VALUE
         }
