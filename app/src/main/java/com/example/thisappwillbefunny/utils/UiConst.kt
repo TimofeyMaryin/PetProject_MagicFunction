@@ -15,7 +15,7 @@ object UiConst {
     }
 
     object Padding {
-        val CONTAINER = 30.dp
+        val CONTAINER = 23.dp
         val BETWEEN_ELEMENT = 30.dp
         val MEDIUM = 15.dp
     }
@@ -59,18 +59,19 @@ object ContentConst {
     }
 
     private object ElConst {
-        val firstBgBrush = listOf(Color.Red, Color.Blue)
+        private const val defaultAlpha = .4f
+        val firstBgBrush = listOf(Color.Red.copy(defaultAlpha), Color.Blue.copy(defaultAlpha))
         val secondBgBrush = arrayOf(
-            0.0f to Color.Yellow,
-            0.2f to Color.Red,
-            1f to Color.Blue
+            0.0f to Color.Yellow.copy(defaultAlpha),
+            0.2f to Color.Red.copy(defaultAlpha),
+            1f to Color.Blue.copy(defaultAlpha)
         )
 
         val threeBgBrush = arrayOf(
-            0.25f to Color(0xFF03001e),
-            0.50f to Color(0xFF7303c0),
-            0.75f to Color(0xFFec38bc),
-            1.00f to Color(0xFF370729)
+            0.25f to Color(0xFF03001e).copy(defaultAlpha),
+            0.50f to Color(0xFF7303c0).copy(defaultAlpha),
+            0.75f to Color(0xFFec38bc).copy(defaultAlpha),
+            1.00f to Color(0xFF370729).copy(defaultAlpha)
         )
     }
 

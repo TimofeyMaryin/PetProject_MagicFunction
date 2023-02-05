@@ -52,13 +52,14 @@ fun ChooseActivityFragment(
                 top.linkTo(title.bottom, margin = UiConst.Padding.BETWEEN_ELEMENT)
                 start.linkTo(parent.start)
                 end.linkTo(parent.end)
+                bottom.linkTo(parent.bottom)
             },
             viewModel = viewModel
         )
 
         ExitButton(
             modifier = Modifier.constrainAs(exitButton) {
-                top.linkTo(parent.top, margin = UiConst.Padding.MEDIUM)
+                top.linkTo(parent.top, margin = UiConst.Padding.BETWEEN_ELEMENT)
                 end.linkTo(parent.end, margin = UiConst.Padding.MEDIUM)
             },
         ) {

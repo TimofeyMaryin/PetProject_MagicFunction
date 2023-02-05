@@ -25,7 +25,7 @@ fun GetRandomCatFragment(
     ConstraintLayout(
         modifier = Modifier.fillMaxSize()
     ) {
-        val (image, buttonPlace, imageBg) = createRefs()
+        val (image, buttonPlace) = createRefs()
 
         var result by remember { mutableStateOf("") }
         var changeImage by remember { mutableStateOf(1L) }
