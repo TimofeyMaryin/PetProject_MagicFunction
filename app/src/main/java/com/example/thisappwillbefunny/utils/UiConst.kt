@@ -21,7 +21,8 @@ object UiConst {
     }
 
     object Size {
-        val EXIT_BUTTON = 100.dp
+        val EXIT_BUTTON = 40.dp
+        val HEIGHT_FEATURE_EL = 60.dp
     }
 
     object Color {

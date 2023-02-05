@@ -1,9 +1,11 @@
 package com.example.thisappwillbefunny.presentation.fr.select_fun
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -16,6 +18,9 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
 import com.example.thisappwillbefunny.R
 import com.example.thisappwillbefunny.presentation.models.FeatureElementModel
+import com.example.thisappwillbefunny.presentation.navigation.GET_RANDOM_CAT_ROUTE
+import com.example.thisappwillbefunny.presentation.navigation.SELECT_ACTIVITY_ROUTE
+import com.example.thisappwillbefunny.presentation.navigation.SELECT_INTERNET_STATUS_ROUTE
 import com.example.thisappwillbefunny.presentation.ui.elements.Container
 import com.example.thisappwillbefunny.presentation.ui.elements.ExitButton
 import com.example.thisappwillbefunny.presentation.ui.elements.text.LargeText
@@ -25,7 +30,9 @@ import com.example.thisappwillbefunny.utils.listOfFeature
 import kotlin.system.exitProcess
 
 @Composable
-fun ChooseActivityFragment(navController: NavController) {
+fun ChooseActivityFragment(
+    viewModel: ChooseActivityViewModel
+) {
     ConstraintLayout(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -34,7 +41,7 @@ fun ChooseActivityFragment(navController: NavController) {
         TitleText(
             value = stringResource(id = R.string.app_name),
             modifier = Modifier.constrainAs(title) {
-                top.linkTo(parent.top)
+                top.linkTo(parent.top, margin = UiConst.Padding.BETWEEN_ELEMENT)
                 start.linkTo(parent.start)
                 end.linkTo(parent.end)
             }
@@ -46,6 +53,7 @@ fun ChooseActivityFragment(navController: NavController) {
                 start.linkTo(parent.start)
                 end.linkTo(parent.end)
             },
+            viewModel = viewModel
         )
 
         ExitButton(
@@ -65,29 +73,33 @@ fun ChooseActivityFragment(navController: NavController) {
 
 @Composable
 private fun ColumnFeature(
-    modifier: Modifier
+    modifier: Modifier,
+    viewModel: ChooseActivityViewModel
 ) {
     LazyColumn(
         modifier = Modifier
             .fillMaxWidth()
             .then(modifier)
     ) {
-        item { Container { ColumnItem(value = listOfFeature[0]) } }
-        item { Container { ColumnItem(value = listOfFeature[1]) } }
-        item { Container { ColumnItem(value = listOfFeature[2]) } }
+        item { Container { ColumnItem(value = listOfFeature[0], onClick = { viewModel.navigate(GET_RANDOM_CAT_ROUTE) }) } }
+        item { Container { ColumnItem(value = listOfFeature[1], onClick = { viewModel.navigate(SELECT_INTERNET_STATUS_ROUTE) }) } }
+        item { Container { ColumnItem(value = listOfFeature[2], onClick = { viewModel.navigate(SELECT_ACTIVITY_ROUTE) }) } }
     }
 }
 
 
 @Composable
 private fun ColumnItem(
-    value: FeatureElementModel
+    value: FeatureElementModel,
+    onClick: () -> Unit
 ) {
     Box(
         modifier = Modifier
             .clip(UiConst.Round.BIG_BLOCK_ROUND)
             .fillMaxWidth()
-            .background(value.background) ,
+            .height(UiConst.Size.HEIGHT_FEATURE_EL)
+            .background(value.background)
+            .clickable { onClick() },
         contentAlignment = Alignment.Center
     ) {
         LargeText(
