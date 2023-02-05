@@ -5,7 +5,7 @@ import com.example.thisappwillbefunny.domain.internet.user_activity.pojo.Activit
 
 
 // http://www.boredapi.com/api/activity/
-class GetCurrentActivity {
+object GetCurrentActivity {
 
     suspend fun execute(): ActivityPOJO {
         return ActivityRetrofitHelper.api.getRandomActivity().body()!!

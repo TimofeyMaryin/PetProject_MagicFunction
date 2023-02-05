@@ -5,7 +5,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object ActivityRetrofitHelper {
 
-    private const val BASE_URL = "http://www.boredapi.com/api/activity/"
+    private const val BASE_URL = "https://www.boredapi.com/api/"
 
     private fun getInstance(): Retrofit =
         Retrofit.Builder()
@@ -13,6 +13,6 @@ object ActivityRetrofitHelper {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
-    val api = getInstance().create(ActivityAPI::class.java)
+    val api: ActivityAPI = getInstance().create(ActivityAPI::class.java)
 
 }

@@ -7,7 +7,7 @@ import retrofit2.http.GET
 interface ActivityAPI {
 
 
-    @GET
+    @GET("activity/")
     suspend fun getRandomActivity(): Response<ActivityPOJO>
 
 }

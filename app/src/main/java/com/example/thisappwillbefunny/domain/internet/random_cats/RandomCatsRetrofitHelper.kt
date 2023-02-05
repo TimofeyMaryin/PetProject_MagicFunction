@@ -13,5 +13,5 @@ object RandomCatsRetrofitHelper {
             .build()
 
 
-    val api = getInstance().create(GetRandomCatAPI::class.java)
+    val api: GetRandomCatAPI = getInstance().create(GetRandomCatAPI::class.java)
 }
