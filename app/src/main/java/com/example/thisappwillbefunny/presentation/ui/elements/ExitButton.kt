@@ -23,7 +23,7 @@ fun ExitButton(
             .size(UiConst.Size.EXIT_BUTTON)
             .clip(UiConst.Round.SMALL)
             .clickable { onClick() }
-            .background(UiConst.Color.EXIT_BUTTON)
+            .background(UiConst.Color.EXIT_BUTTON.copy(.4f))
             .then(modifier),
         contentAlignment = Alignment.Center,
     ) {

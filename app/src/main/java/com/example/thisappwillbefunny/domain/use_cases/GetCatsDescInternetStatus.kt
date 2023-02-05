@@ -5,16 +5,17 @@ import com.example.thisappwillbefunny.utils.USER_ENTER_INCORRECT_VALUE
 
 // https://http.cat/
 
-class GetCatsDescInternetStatus {
+object GetCatsDescInternetStatus {
+    private const val BASE_URL = "https://http.cat/"
 
-    private val internetStatusCodes = listOf(
+    val internetStatusCodes = listOf(
          "100", "101", "102", "103",
 
-         "200", "201", "202", "203", "204", "205", "206", "207",
+         "200", "201", "202", "203", "204", "206", "207",
 
-         "300", "301", "302", "302", "303", "304", "305", "306", "307", "308",
+         "300", "301", "302", "303", "304", "305", "307", "308",
 
-         "400", "401", "402", "403", "404", "405", "406", "407", "408", "409",
+         "400", "401", "402", "403", "404", "406", "407", "408", "409",
          "410", "411", "412", "413", "414", "415", "416", "417", "418", "420",
          "421", "422", "423", "424", "425", "426", "429", "431", "444", "450",
          "451", "497", "498", "499",
@@ -41,8 +42,6 @@ class GetCatsDescInternetStatus {
         return false
     }
 
-    companion object {
-        private const val BASE_URL = "https://http.cat/"
-    }
+
 
 }

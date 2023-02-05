@@ -14,16 +14,21 @@ import com.example.thisappwillbefunny.presentation.fr.select_fun.ChooseActivityF
 import com.example.thisappwillbefunny.presentation.fr.select_fun.ChooseActivityViewModel
 import com.example.thisappwillbefunny.presentation.fr.select_fun.ChooseActivityViewModelFactory
 import com.example.thisappwillbefunny.presentation.fr.select_internet_status.SelectInternetStatusFragment
+import com.example.thisappwillbefunny.presentation.fr.select_internet_status.SelectInternetStatusViewModel
+import com.example.thisappwillbefunny.presentation.fr.select_internet_status.SelectInternetStatusViewModelFactory
 
 @Composable
 fun AppNavController(navController: NavHostController) {
     val chooseActivityViewModel: ChooseActivityViewModel = viewModel(factory = ChooseActivityViewModelFactory(navController = navController))
     val getRandomCatViewModel: GetRandomCatViewModel = viewModel(factory = GetRandomCatViewModelFactory(navController = navController))
+    val selectInternetStatusViewModel: SelectInternetStatusViewModel = viewModel(factory = SelectInternetStatusViewModelFactory(navController = navController))
+
 
     NavHost(navController = navController, startDestination = CHOOSE_ACTIVITY_ROUTE ) {
         composable(CHOOSE_ACTIVITY_ROUTE) { ChooseActivityFragment(viewModel = chooseActivityViewModel) }
         composable(GET_RANDOM_CAT_ROUTE) { GetRandomCatFragment(viewModel = getRandomCatViewModel) }
-        composable(SELECT_INTERNET_STATUS_ROUTE) { SelectInternetStatusFragment() }
+        composable(SELECT_INTERNET_STATUS_ROUTE) { SelectInternetStatusFragment(viewModel = selectInternetStatusViewModel) }
         composable(SELECT_ACTIVITY_ROUTE) { SelectActivityFragment() }
+
     }
 }
