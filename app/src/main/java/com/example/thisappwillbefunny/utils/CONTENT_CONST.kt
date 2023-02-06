@@ -1,6 +1,7 @@
 package com.example.thisappwillbefunny.utils
 
-import com.example.thisappwillbefunny.presentation.models.FeatureElementModel
+import com.example.thisappwillbefunny.domain.model.FeatureElementModel
+import com.example.thisappwillbefunny.domain.model.TipInternetStatusModel
 
 val listOfFeature = listOf(
     FeatureElementModel(
@@ -18,4 +19,11 @@ val listOfFeature = listOf(
         ContentConst.ListOfFeature.Three.bg,
         ContentConst.ListOfFeature.Three.textColor,
     )
+)
+
+val listOfTipsInternetStatus = listOf(
+    TipInternetStatusModel("Tips №1", "Test"),
+    TipInternetStatusModel("Tips №23", "Test".repeat(12)),
+    TipInternetStatusModel("Tips №64", "Test ".repeat(5)),
+    TipInternetStatusModel("Tips №12", "Test ".repeat(23)),
 )

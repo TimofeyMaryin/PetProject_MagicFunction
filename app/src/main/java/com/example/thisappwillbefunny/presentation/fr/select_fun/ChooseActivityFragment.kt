@@ -11,13 +11,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.*
-import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.constraintlayout.compose.ConstraintLayout
-import androidx.navigation.NavController
 import com.example.thisappwillbefunny.R
-import com.example.thisappwillbefunny.presentation.models.FeatureElementModel
+import com.example.thisappwillbefunny.domain.model.FeatureElementModel
 import com.example.thisappwillbefunny.presentation.navigation.GET_RANDOM_CAT_ROUTE
 import com.example.thisappwillbefunny.presentation.navigation.SELECT_ACTIVITY_ROUTE
 import com.example.thisappwillbefunny.presentation.navigation.SELECT_INTERNET_STATUS_ROUTE

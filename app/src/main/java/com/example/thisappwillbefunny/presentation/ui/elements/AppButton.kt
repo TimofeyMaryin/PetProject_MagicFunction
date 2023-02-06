@@ -1,4 +1,4 @@
-package com.example.thisappwillbefunny.presentation.models
+package com.example.thisappwillbefunny.presentation.ui.elements
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*

@@ -13,9 +13,8 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import coil.compose.AsyncImagePainter
 import coil.compose.SubcomposeAsyncImage
 import coil.compose.SubcomposeAsyncImageContent
-import coil.size.Scale
 import com.example.thisappwillbefunny.R
-import com.example.thisappwillbefunny.presentation.models.AppButton
+import com.example.thisappwillbefunny.presentation.ui.elements.AppButton
 import com.example.thisappwillbefunny.utils.UiConst
 
 @Composable

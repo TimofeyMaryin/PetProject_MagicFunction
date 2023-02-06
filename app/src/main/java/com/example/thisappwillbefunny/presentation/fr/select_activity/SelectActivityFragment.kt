@@ -140,17 +140,3 @@ private fun AllInfoAboutActivityItem(
     }
 }
 
-//
-//Column(
-//
-//) {
-//    LargeText(value = content!!.activity)
-//    LargeText(value = content!!.key)
-//    LargeText(value = content!!.link)
-//    Log.e("SelectActivityFragment",  content!!.link, )
-//    LargeText(value = content!!.type)
-//    LargeText(value = content!!.accessibility.toString())
-//    LargeText(value = content!!.participants.toString())
-//    LargeText(value = content!!.price.toString())
-//
-//}

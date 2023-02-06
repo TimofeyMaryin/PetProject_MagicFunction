@@ -1,4 +1,4 @@
-package com.example.thisappwillbefunny.presentation.models
+package com.example.thisappwillbefunny.domain.model
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Brush

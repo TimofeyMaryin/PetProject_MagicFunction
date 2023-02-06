@@ -11,6 +11,7 @@ import androidx.compose.ui.unit.sp
 object UiConst {
     object Round {
         val BIG_BLOCK_ROUND = RoundedCornerShape(40.dp)
+        val NORMAL = RoundedCornerShape(16.dp)
         val SMALL = RoundedCornerShape(8.dp)
     }
 
@@ -18,13 +19,20 @@ object UiConst {
         val CONTAINER = 23.dp
         val BETWEEN_ELEMENT = 30.dp
         val MEDIUM = 15.dp
+        val SMALL = 8.dp
+        val ZERO = 0.dp
     }
 
     object Size {
         val EXIT_BUTTON = 40.dp
         val HEIGHT_FEATURE_EL = 60.dp
+        val WIDTH_TIP_EL = 150.dp
         val BtnIconSize = 20.dp
         val BUTTON_HEIGHT = 60.dp
+        val TOP_BAR_HEIGHT = 160.dp
+        val MIN_HEIGHT_CAROUSEL_ITEM = 100.dp
+        val SMALL_TEXT_SIZE = 13.sp
+        val TIPS_VIDEOS = 190.dp
     }
 
     object Color {
