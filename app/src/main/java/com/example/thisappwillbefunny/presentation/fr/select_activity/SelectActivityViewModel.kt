@@ -2,6 +2,7 @@ package com.example.thisappwillbefunny.presentation.fr.select_activity
 
 import androidx.lifecycle.ViewModel
 import com.example.thisappwillbefunny.R
+import com.example.thisappwillbefunny.presentation.repository.ActivityInfoRepoImpl
 
 class SelectActivityViewModel : ViewModel() {
 
@@ -19,4 +20,6 @@ class SelectActivityViewModel : ViewModel() {
             "busywork" -> R.raw.busywork
             else -> -1
         }
+
+    val activityRepo = ActivityInfoRepoImpl()
 }

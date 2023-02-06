@@ -5,6 +5,8 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import com.example.thisappwillbefunny.presentation.ui.font.Sassy
 
@@ -13,13 +15,16 @@ fun LargeText(
     value: String,
     modifier: Modifier = Modifier,
     color: Color = MaterialTheme.colors.primary,
-    textAlign: TextAlign = TextAlign.Start
+    textAlign: TextAlign = TextAlign.Start,
+    fontFamily: FontFamily = Sassy,
+    fontWeight: FontWeight = FontWeight.Bold
 ) =
     Text(
         text = value,
         modifier = modifier,
         style = MaterialTheme.typography.h6,
-        fontFamily = Sassy,
+        fontFamily = fontFamily,
         color = color,
-        textAlign = textAlign
+        textAlign = textAlign,
+        fontWeight = fontWeight
     )
