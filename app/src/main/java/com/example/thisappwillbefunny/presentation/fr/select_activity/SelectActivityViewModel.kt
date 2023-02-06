@@ -1,7 +1,6 @@
 package com.example.thisappwillbefunny.presentation.fr.select_activity
 
 import androidx.lifecycle.ViewModel
-import com.airbnb.lottie.compose.LottieAnimationSpec
 import com.example.thisappwillbefunny.R
 
 class SelectActivityViewModel : ViewModel() {
