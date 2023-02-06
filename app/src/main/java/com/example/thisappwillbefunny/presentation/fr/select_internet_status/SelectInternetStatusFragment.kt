@@ -162,7 +162,6 @@ private fun TopBarInternetStatusFragment(
 ) {
     var visibility by remember { mutableStateOf(false) }
 
-//    val animateSpec: LottieCompositionResult = rememberLottieComposition(spec = LottieCompositionSpec.RawRes(R.raw.tips_1))
     val isLoad: LottieCompositionResult = rememberLottieComposition(spec = LottieCompositionSpec.RawRes(R.raw.tips_1))
     val progress by animateLottieCompositionAsState(
         composition = isLoad.value,
