@@ -7,5 +7,6 @@ data class ActivityItemDescModel(
     val bg: Brush,
     val icon: Int,
     val iconColor: Color,
-    val desc: String
+    val desc: String,
+    val nameTypeActivity: String
 )

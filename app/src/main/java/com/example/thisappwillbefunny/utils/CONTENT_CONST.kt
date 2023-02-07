@@ -1,7 +1,8 @@
 package com.example.thisappwillbefunny.utils
 
-import com.example.thisappwillbefunny.domain.model.FeatureElementModel
-import com.example.thisappwillbefunny.domain.model.TipInternetStatusModel
+import androidx.compose.ui.graphics.Color
+import com.example.thisappwillbefunny.domain.internet.user_activity.pojo.ActivityPOJO
+import com.example.thisappwillbefunny.domain.model.*
 
 val listOfFeature = listOf(
     FeatureElementModel(
@@ -26,4 +27,11 @@ val listOfTipsInternetStatus = listOf(
     TipInternetStatusModel("Tips №23", "Test".repeat(12)),
     TipInternetStatusModel("Tips №64", "Test ".repeat(5)),
     TipInternetStatusModel("Tips №12", "Test ".repeat(23)),
+)
+
+val emptyRequestActivityModel = RequestActivityModel(
+    activityPOJO = ActivityPOJO(0.0,"","","",0,0.0,""),
+    accessibleModel = ActivityItemDescModel(UiConst.Brushes.MIAKA, 0, Color.Transparent, "", ""),
+    participants = ActivityItemDescModel(UiConst.Brushes.MIAKA, 0, Color.Transparent, "", ""),
+    pricing = ActivityItemDescModel(UiConst.Brushes.MIAKA, 0, Color.Transparent, "", ""),
 )

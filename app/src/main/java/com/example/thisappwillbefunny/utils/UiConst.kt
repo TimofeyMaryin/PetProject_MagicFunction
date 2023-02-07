@@ -1,10 +1,12 @@
 package com.example.thisappwillbefunny.utils
 
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
@@ -23,6 +25,10 @@ object UiConst {
         val ZERO = 0.dp
     }
 
+    object Border {
+        val bottomSheetBorder = BorderStroke(1.dp, androidx.compose.ui.graphics.Color.Magenta)
+    }
+
     object Size {
         val EXIT_BUTTON = 40.dp
         val HEIGHT_FEATURE_EL = 60.dp
@@ -35,6 +41,10 @@ object UiConst {
         val TIPS_VIDEOS = 190.dp
 
         val ACTIVITY_ITEM_SIZE = 60.dp
+
+        val BOTTOM_SHEET_DETAIL = Pair(50.dp, 4.dp)
+        val LINE_HEIGHT = 1.dp
+        val HEIGHT_BOTTOM_SHEET_EL = 40.dp
     }
 
     object Color {
