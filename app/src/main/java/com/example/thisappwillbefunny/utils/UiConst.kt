@@ -33,6 +33,8 @@ object UiConst {
         val MIN_HEIGHT_CAROUSEL_ITEM = 100.dp
         val SMALL_TEXT_SIZE = 13.sp
         val TIPS_VIDEOS = 190.dp
+
+        val ACTIVITY_ITEM_SIZE = 60.dp
     }
 
     object Color {
@@ -41,6 +43,23 @@ object UiConst {
     }
 
     val DEFAULT_BLUR = 14.dp
+
+    object Brushes {
+        val BLUE_PINK = Brush.linearGradient(
+            0.0f to Color(0xFFFF3CAC),
+            0.6f to Color(0xFF784BA0),
+            1f to Color(0xFF2B86C5)
+        )
+
+        val RAINBOW_BLUE = Brush.radialGradient(
+            0.0f to Color(0xFF00f260),
+            1f to Color(0xFF0575e6)
+        )
+        val MIAKA = Brush.radialGradient(
+            0.0f to Color(0xFFFC354C),
+            1f to Color(0xFF0ABFBC)
+        )
+    }
 
 }
 
