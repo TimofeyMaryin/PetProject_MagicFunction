@@ -43,9 +43,9 @@ fun ActivityItem(
             horizontalArrangement = Arrangement.Center,
             modifier = Modifier.weight(1f)
         ) {
-            ActivityItemDesc(model = viewModel.setAccessibility(viewModel.currentRequest[index].activityPOJO.accessibility.toFloat()))
-            ActivityItemDesc(model = viewModel.setParticipants(viewModel.currentRequest[index].activityPOJO.participants))
-            ActivityItemDesc(model = viewModel.setPrice(viewModel.currentRequest[index].activityPOJO.price.toFloat()))
+            ActivityItemDesc(model = viewModel.activityRepo.getAccessibility(viewModel.currentRequest[index].activityPOJO.accessibility.toFloat()))
+            ActivityItemDesc(model = viewModel.activityRepo.getParticipants(viewModel.currentRequest[index].activityPOJO.participants))
+            ActivityItemDesc(model = viewModel.activityRepo.getPrice(viewModel.currentRequest[index].activityPOJO.price.toFloat()))
         }
     }
 }

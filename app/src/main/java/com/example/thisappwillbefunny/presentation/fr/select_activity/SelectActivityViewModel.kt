@@ -21,35 +21,9 @@ class SelectActivityViewModel : ViewModel() {
     var currentRequest by mutableStateOf(
         listOf(emptyRequestActivityModel)
     )
+    val activityRepo = ActivityInfoRepoImpl()
 
-    fun setAccessibility(value: Float): ActivityItemDescModel {
-        val status = UiConst.Brushes.ActivityTipsStatus
-        return when(value) {
-            0.0f -> { ActivityItemDescModel(bg = status.easy.first, icon = R.drawable.back, iconColor = status.easy.second, "", "") }
-            in 0.0001f..0.7f -> { ActivityItemDescModel(bg = status.normal.first, icon = R.drawable.ic_launcher_foreground, iconColor = status.normal.second, "", "") }
-            in 0.7001f..1f -> { ActivityItemDescModel(bg = status.hard.first, icon = R.drawable.reload, iconColor = status.hard.second, "", "") }
-            else -> { ActivityItemDescModel(bg = status.normal.first, icon = R.drawable.ic_launcher_foreground, iconColor = status.normal.second, "", "") }
-        }
-    }
 
-    fun setParticipants(value: Int): ActivityItemDescModel {
-        val status = UiConst.Brushes.ActivityTipsStatus
-        return when (value) {
-            in 1..3 -> { ActivityItemDescModel(bg = status.easy.first, icon = R.drawable.back, iconColor = status.easy.second, "", "") }
-            in 4..10 -> { ActivityItemDescModel(bg = status.normal.first, icon = R.drawable.back, iconColor = status.normal.second, "", "") }
-            else -> { ActivityItemDescModel(bg = status.hard.first, icon = R.drawable.back, iconColor = status.hard.second, "", "") }
-        }
-    }
-
-    fun setPrice(value: Float): ActivityItemDescModel{
-        val status = UiConst.Brushes.ActivityTipsStatus
-        return when(value) {
-            0.0f -> { ActivityItemDescModel(bg = status.easy.first, icon = R.drawable.back, iconColor = status.easy.second, "", "") }
-            in 0.0001f..0.7f -> { ActivityItemDescModel(bg = status.normal.first, icon = R.drawable.ic_launcher_foreground, iconColor = status.normal.second, "", "") }
-            in 0.7001f..1f -> { ActivityItemDescModel(bg = status.hard.first, icon = R.drawable.reload, iconColor = status.hard.second, "", "") }
-            else -> { ActivityItemDescModel(bg = status.normal.first, icon = R.drawable.ic_launcher_foreground, iconColor = status.normal.second, "", "") }
-        }
-    }
 
     suspend fun requestActivity(): MutableList<RequestActivityModel> {
         val result = mutableListOf<RequestActivityModel>()
@@ -70,8 +44,6 @@ class SelectActivityViewModel : ViewModel() {
 
         return result
     }
-
-    private val activityRepo = ActivityInfoRepoImpl()
 
 
 

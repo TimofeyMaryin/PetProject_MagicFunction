@@ -10,32 +10,31 @@ import com.example.thisappwillbefunny.utils.UiConst
 
 class ActivityInfoRepoImpl: ActivityInfoRepository {
     override fun getAccessibility(value: Float): ActivityItemDescModel {
+        val status = UiConst.Brushes.ActivityTipsStatus
         return when(value) {
-            in 0f..0.3f -> ActivityItemDescModel(UiConst.Brushes.BLUE_PINK, R.drawable.reload, Color.White, "Desc ".repeat(3), "Accessibility")
-            in 0.30001f..0.5f -> ActivityItemDescModel(UiConst.Brushes.BLUE_PINK, R.drawable.reload, Color.White, "Desc ".repeat(4), "Accessibility")
-            in 0.50005f..0.7f -> ActivityItemDescModel(UiConst.Brushes.BLUE_PINK, R.drawable.reload, Color.White, "Desc ".repeat(7), "Accessibility")
-            in 0.70001f..1f -> ActivityItemDescModel(UiConst.Brushes.BLUE_PINK, R.drawable.reload,Color.White, "Desc ".repeat(3), "Accessibility")
-            else -> ActivityItemDescModel(UiConst.Brushes.BLUE_PINK, R.drawable.reload,Color.White, "Desc ".repeat(3), "Accessibility")
+            0.0f -> { ActivityItemDescModel(bg = status.easy.first, icon = R.drawable.back, iconColor = status.easy.second, "Accessibility Easy", "Accessibility") }
+            in 0.0001f..0.7f -> { ActivityItemDescModel(bg = status.normal.first, icon = R.drawable.ic_launcher_foreground, iconColor = status.normal.second, "Accessibility Normal", "Accessibility") }
+            in 0.7001f..1f -> { ActivityItemDescModel(bg = status.hard.first, icon = R.drawable.reload, iconColor = status.hard.second, "Accessibility hard", "Accessibility") }
+            else -> { ActivityItemDescModel(bg = status.normal.first, icon = R.drawable.ic_launcher_foreground, iconColor = status.normal.second, "", "Accessibility") }
         }
     }
 
     override fun getParticipants(value: Int): ActivityItemDescModel {
-        return when(value) {
-            in 1..3 -> ActivityItemDescModel(UiConst.Brushes.RAINBOW_BLUE, R.drawable.reload, Color.White, "Des part".repeat(4), "Participants")
-            in 4..7 -> ActivityItemDescModel(UiConst.Brushes.RAINBOW_BLUE, R.drawable.reload, Color.White, "Des part".repeat(2), "Participants")
-            in 8..12 -> ActivityItemDescModel(UiConst.Brushes.RAINBOW_BLUE, R.drawable.reload, Color.White, "Des part".repeat(6), "Participants")
-            else -> ActivityItemDescModel(UiConst.Brushes.RAINBOW_BLUE, R.drawable.reload, Color.White, "Error", "Error")
+        val status = UiConst.Brushes.ActivityTipsStatus
+        return when (value) {
+            in 1..3 -> { ActivityItemDescModel(bg = status.easy.first, icon = R.drawable.back, iconColor = status.easy.second, "Participants Easy", "Participants") }
+            in 4..10 -> { ActivityItemDescModel(bg = status.normal.first, icon = R.drawable.back, iconColor = status.normal.second, "Participants Normal", "Participants") }
+            else -> { ActivityItemDescModel(bg = status.hard.first, icon = R.drawable.back, iconColor = status.hard.second, "Participants Hard", "Participants") }
         }
     }
 
     override fun getPrice(value: Float): ActivityItemDescModel {
+        val status = UiConst.Brushes.ActivityTipsStatus
         return when(value) {
-            0f -> ActivityItemDescModel(UiConst.Brushes.MIAKA, R.drawable.reload, Color.White, "Desc price ".repeat(2), "Price")
-            in 0.0001f..0.3f -> ActivityItemDescModel(UiConst.Brushes.MIAKA, R.drawable.reload, Color.White, "Desc price ".repeat(5), "Price")
-            in 0.3001f..0.5f -> ActivityItemDescModel(UiConst.Brushes.MIAKA, R.drawable.reload, Color.White, "Desc price ".repeat(2), "Price")
-            in 0.5001f..0.7f -> ActivityItemDescModel(UiConst.Brushes.MIAKA, R.drawable.reload, Color.White, "Desc price ".repeat(1), "Price")
-            in 0.7001f..1f -> ActivityItemDescModel(UiConst.Brushes.MIAKA, R.drawable.reload, Color.White, "Desc price ".repeat(4), "Price")
-            else -> ActivityItemDescModel(UiConst.Brushes.MIAKA, R.drawable.reload, Color.White, "Error", "Error")
+            0.0f -> { ActivityItemDescModel(bg = status.easy.first, icon = R.drawable.back, iconColor = status.easy.second, "Price Easy", "Price") }
+            in 0.0001f..0.7f -> { ActivityItemDescModel(bg = status.normal.first, icon = R.drawable.ic_launcher_foreground, iconColor = status.normal.second, "Price Normal", "Price") }
+            in 0.7001f..1f -> { ActivityItemDescModel(bg = status.hard.first, icon = R.drawable.reload, iconColor = status.hard.second, "Price Hard", "Price") }
+            else -> { ActivityItemDescModel(bg = status.normal.first, icon = R.drawable.ic_launcher_foreground, iconColor = status.normal.second, "Price Error", "Price Error") }
         }
     }
 
