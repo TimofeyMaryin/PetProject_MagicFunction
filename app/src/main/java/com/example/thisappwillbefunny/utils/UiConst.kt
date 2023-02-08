@@ -70,10 +70,34 @@ object UiConst {
             1f to Color(0xFF0ABFBC)
         )
 
-        val WHITE_TRANSPARENT = Brush.verticalGradient(
-            0.0f to androidx.compose.ui.graphics.Color.White,
-            1.0f to androidx.compose.ui.graphics.Color.White.copy(.4f)
-        )
+
+        object ActivityTipsStatus {
+            val easy = Pair(
+                Brush.horizontalGradient(
+                    0.0f to Color(0xFFa8ff78),
+                    1.0f to Color(0xFF78ffd6)
+                ),
+                androidx.compose.ui.graphics.Color.White
+            )
+
+            val normal = Pair(
+                Brush.horizontalGradient(
+                    0.0f to Color(0xFF7F00FF),
+                    1.0f to Color(0xFFE100FF)
+                ),
+                androidx.compose.ui.graphics.Color.White
+            )
+
+
+            val hard = Pair(
+                Brush.horizontalGradient(
+                    0.0f to Color(0xFFED213A),
+                    1.0f to Color(0xFF93291E)
+                ),
+                androidx.compose.ui.graphics.Color.White
+            )
+
+        }
     }
 
 }

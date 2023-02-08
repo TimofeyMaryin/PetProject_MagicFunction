@@ -4,35 +4,56 @@ import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import com.example.thisappwillbefunny.R
+import com.example.thisappwillbefunny.domain.model.ActivityItemDescModel
 import com.example.thisappwillbefunny.domain.model.RequestActivityModel
 import com.example.thisappwillbefunny.domain.use_cases.GetCurrentActivity
 import com.example.thisappwillbefunny.presentation.repository.ActivityInfoRepoImpl
+import com.example.thisappwillbefunny.utils.UiConst
+import com.example.thisappwillbefunny.utils.emptyRequestActivityModel
 import kotlinx.coroutines.coroutineScope
 
 class SelectActivityViewModel : ViewModel() {
 
     var defaultCountRequest by mutableStateOf(10)
-    fun getCurrentRawRes(type: String): Int =
-        when(type){
-            "education" -> R.raw.reading_boy
-            "recreational" -> R.raw.relaxation
-            "social" -> R.raw.social
-            "diy" -> R.raw.diy
-            "charity" -> R.raw.charity
-            "cooking" -> R.raw.cooking
-            "relaxation" -> R.raw.relax
-            "music" -> R.raw.music
-            "busywork" -> R.raw.busywork
-            else -> -1
+    var currentRequest by mutableStateOf(
+        listOf(emptyRequestActivityModel)
+    )
+
+    fun setAccessibility(value: Float): ActivityItemDescModel {
+        val status = UiConst.Brushes.ActivityTipsStatus
+        return when(value) {
+            0.0f -> { ActivityItemDescModel(bg = status.easy.first, icon = R.drawable.back, iconColor = status.easy.second, "", "") }
+            in 0.0001f..0.7f -> { ActivityItemDescModel(bg = status.normal.first, icon = R.drawable.ic_launcher_foreground, iconColor = status.normal.second, "", "") }
+            in 0.7001f..1f -> { ActivityItemDescModel(bg = status.hard.first, icon = R.drawable.reload, iconColor = status.hard.second, "", "") }
+            else -> { ActivityItemDescModel(bg = status.normal.first, icon = R.drawable.ic_launcher_foreground, iconColor = status.normal.second, "", "") }
         }
+    }
+
+    fun setParticipants(value: Int): ActivityItemDescModel {
+        val status = UiConst.Brushes.ActivityTipsStatus
+        return when (value) {
+            in 1..3 -> { ActivityItemDescModel(bg = status.easy.first, icon = R.drawable.back, iconColor = status.easy.second, "", "") }
+            in 4..10 -> { ActivityItemDescModel(bg = status.normal.first, icon = R.drawable.back, iconColor = status.normal.second, "", "") }
+            else -> { ActivityItemDescModel(bg = status.hard.first, icon = R.drawable.back, iconColor = status.hard.second, "", "") }
+        }
+    }
+
+    fun setPrice(value: Float): ActivityItemDescModel{
+        val status = UiConst.Brushes.ActivityTipsStatus
+        return when(value) {
+            0.0f -> { ActivityItemDescModel(bg = status.easy.first, icon = R.drawable.back, iconColor = status.easy.second, "", "") }
+            in 0.0001f..0.7f -> { ActivityItemDescModel(bg = status.normal.first, icon = R.drawable.ic_launcher_foreground, iconColor = status.normal.second, "", "") }
+            in 0.7001f..1f -> { ActivityItemDescModel(bg = status.hard.first, icon = R.drawable.reload, iconColor = status.hard.second, "", "") }
+            else -> { ActivityItemDescModel(bg = status.normal.first, icon = R.drawable.ic_launcher_foreground, iconColor = status.normal.second, "", "") }
+        }
+    }
 
     suspend fun requestActivity(): MutableList<RequestActivityModel> {
-        Log.e("requestActivity", "function start", )
         val result = mutableListOf<RequestActivityModel>()
         coroutineScope {
-            Log.e("requestActivity", "coroutines is start", )
             for (i in 0 until defaultCountRequest) {
                 val currentRequest = GetCurrentActivity.execute()
                 result.add(
@@ -43,14 +64,16 @@ class SelectActivityViewModel : ViewModel() {
                         pricing = activityRepo.getPrice(currentRequest.price.toFloat())
                     )
                 )
-                Log.e("requestActivity", "add el", )
             }
 
         }
-        Log.e("requestActivity", "coroutines is finished like and function", )
 
         return result
     }
 
     private val activityRepo = ActivityInfoRepoImpl()
+
+
+
+
 }

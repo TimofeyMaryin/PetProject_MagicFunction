@@ -70,7 +70,6 @@ private fun ActivityFragmentsContent(
     viewModel: SelectActivityViewModel,
     showMoreDetail: (RequestActivityModel) -> Unit
 ) {
-    var currentRequests by remember { mutableStateOf<List<RequestActivityModel>>(emptyList()) }
     var isLoad by remember { mutableStateOf(false) }
     val configuration = LocalConfiguration.current
 
@@ -102,15 +101,13 @@ private fun ActivityFragmentsContent(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(vertical = UiConst.Padding.SMALL)
-                        .clickable { showMoreDetail(currentRequests[it]) },
+                        .clickable { showMoreDetail(viewModel.currentRequest[it]) },
                     contentAlignment = Alignment.Center,
                 ) {
                     ActivityItem(
-                        activityName = currentRequests[it].activityPOJO.activity,
                         modifier = Modifier,
-                        accessibilityModel = currentRequests[it].accessibleModel,
-                        participantsModel = currentRequests[it].participants,
-                        priceModel = currentRequests[it].pricing
+                        viewModel = viewModel,
+                        index = it
                     )
                 }
             }
@@ -121,9 +118,8 @@ private fun ActivityFragmentsContent(
     }
 
     LaunchedEffect(key1 = Unit, block = {
-        currentRequests = viewModel.requestActivity()
-        Log.e("SelectActivityFragment", "currentRequest: ${currentRequests.size}", )
-        if (currentRequests.size == viewModel.defaultCountRequest) {
+        viewModel.currentRequest = viewModel.requestActivity()
+        if (viewModel.currentRequest.size == viewModel.defaultCountRequest) {
             isLoad = true
         }
     })
