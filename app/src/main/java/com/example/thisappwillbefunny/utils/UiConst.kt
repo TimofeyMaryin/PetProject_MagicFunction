@@ -69,6 +69,11 @@ object UiConst {
             0.0f to Color(0xFFFC354C),
             1f to Color(0xFF0ABFBC)
         )
+
+        val WHITE_TRANSPARENT = Brush.verticalGradient(
+            0.0f to androidx.compose.ui.graphics.Color.White,
+            1.0f to androidx.compose.ui.graphics.Color.White.copy(.4f)
+        )
     }
 
 }

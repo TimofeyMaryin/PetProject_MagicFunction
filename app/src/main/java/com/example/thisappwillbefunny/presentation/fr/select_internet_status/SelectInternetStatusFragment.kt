@@ -13,6 +13,7 @@ import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
+import androidx.compose.ui.unit.dp
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.*
@@ -36,6 +37,7 @@ import com.example.thisappwillbefunny.domain.model.CatsInternetStatusModel
 import com.example.thisappwillbefunny.domain.model.TipInternetStatusModel
 import com.example.thisappwillbefunny.presentation.ui.elements.CarouselTips
 import com.example.thisappwillbefunny.presentation.ui.elements.Container
+import com.example.thisappwillbefunny.presentation.ui.elements.LoadingShimmerEffect
 import com.example.thisappwillbefunny.presentation.ui.elements.text.LargeText
 import com.example.thisappwillbefunny.presentation.ui.elements.text.MediumText
 import com.example.thisappwillbefunny.presentation.ui.elements.text.SmallText
@@ -53,13 +55,9 @@ fun SelectInternetStatusFragment(
     ConstraintLayout(
         modifier = Modifier.fillMaxSize()
     ) {
-        val (title, content, topBar) = createRefs()
+        val (content, topBar) = createRefs()
         var showFullSizeImage by remember { mutableStateOf(false) }
         var currentUrl by remember { mutableStateOf("") }
-
-
-
-
 
 
          LazyColumn(
@@ -114,15 +112,14 @@ private fun CatsInternetStatusItem(
             contentDescription = null,
             contentScale = ContentScale.FillWidth,
             modifier = Modifier
-                .clickable { onClick() }
                 .fillMaxWidth()
         ) {
             val state = painter.state
 
-            if (state is AsyncImagePainter.State.Loading || state is AsyncImagePainter.State.Error){
-                CircularProgressIndicator(modifier = Modifier.size(UiConst.Size.BUTTON_HEIGHT))
+            if (!(state is AsyncImagePainter.State.Loading || state is AsyncImagePainter.State.Error)){
+                SubcomposeAsyncImageContent(modifier = Modifier.clickable { onClick()})
             } else {
-                SubcomposeAsyncImageContent()
+                LoadingShimmerEffect(modifier = Modifier.fillMaxSize())
             }
         }
     }
@@ -130,29 +127,6 @@ private fun CatsInternetStatusItem(
 }
 
 
-@Deprecated("Тут дизайн дырявый, а переделывать стремно")
-@Composable
-private fun TopBarSelectInternetStatus(modifier: Modifier) {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(UiConst.Size.TOP_BAR_HEIGHT)
-            .background(MaterialTheme.colors.onBackground)
-            .then(modifier),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Container{
-            LargeText(
-                value = "Select Internet status",
-                fontFamily = Raleway,
-                color = MaterialTheme.colors.background
-            )
-        }
-
-        CarouselTips()
-
-    }
-}
 
 
 @Composable
@@ -172,11 +146,11 @@ private fun TopBarInternetStatusFragment(
     ConstraintLayout(
         modifier = Modifier
             .fillMaxWidth()
-            .background(Color.White)
+            .background(MaterialTheme.colors.background)
             .height(UiConst.Size.TOP_BAR_HEIGHT)
             .then(modifier)
     ) {
-        val (videoPlace, tipsPlace, descTipsPlace) = createRefs()
+        val (videoPlace, tipsPlace, descTipsPlace, bottomLines) = createRefs()
 
         AnimatedVisibility(
             visible = visibility,
@@ -233,6 +207,18 @@ private fun TopBarInternetStatusFragment(
         ) {
             SmallText(value = value.tipsNumber)
         }
+
+        Box(
+            modifier = Modifier
+                .fillMaxWidth(.95f)
+                .height(1.dp)
+                .background(Color.White.copy(.4f))
+                .constrainAs(bottomLines) {
+                    bottom.linkTo(parent.bottom)
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
+                },
+        )
     }
 
 
@@ -312,29 +298,14 @@ private fun ShowImageFullSize(
             BottomButtonPlace(
                 modifier = Modifier,
                 onDownload = { viewModel.downloadImage() },
-                onBack = { viewModel.onExit() }
-            )
-
-        }
-
-        IconButton(
-            onClick = {
-                visibleAnimation = false
-                canCloseWin = true
-            },
-            modifier = Modifier
-                .size(UiConst.Size.BtnIconSize)
-                .constrainAs(iconBack) {
-                    top.linkTo(parent.top, margin = UiConst.Padding.BETWEEN_ELEMENT)
-                    start.linkTo(parent.start, margin = UiConst.Padding.BETWEEN_ELEMENT)
+                onBack = {
+                    visibleAnimation = false
+                    canCloseWin = true
                 }
-        ) {
-            Icon(
-                imageVector = Icons.Default.ArrowBack,
-                contentDescription = null,
-                tint = Color.White,
             )
+
         }
+
 
 
     }
