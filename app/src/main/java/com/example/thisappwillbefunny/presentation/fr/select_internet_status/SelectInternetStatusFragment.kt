@@ -264,8 +264,6 @@ private fun ShowImageFullSize(
 
         val (image, bottomButtonPlace, iconBack) = createRefs()
 
-
-
         AnimatedVisibility(
             visible = visibleAnimation,
             enter = slideInVertically() + fadeIn(tween(300)),
@@ -291,8 +289,15 @@ private fun ShowImageFullSize(
                     .background(Color.Black.copy(.5f)),
                 contentAlignment = Alignment.Center
             ) {
-                AsyncImage(model = url, contentDescription = null)
+                AsyncImage(
+                    model = url,
+                    contentDescription = null,
+                    contentScale = ContentScale.FillWidth,
+                    modifier = Modifier.fillMaxWidth()
+                )
             }
+
+
 
         }
 
