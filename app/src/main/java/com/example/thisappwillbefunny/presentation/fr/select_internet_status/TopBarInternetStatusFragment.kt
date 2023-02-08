@@ -79,7 +79,7 @@ fun TopBarInternetStatusFragment(
             Box(
                 modifier = Modifier
                     .clip(UiConst.Round.NORMAL)
-                    .background(Color.Red.copy(.8f))
+                    .background(MaterialTheme.colors.onSurface)
                     .width(UiConst.Size.WIDTH_TIP_EL),
                 contentAlignment = Alignment.Center
             ) {
@@ -87,7 +87,8 @@ fun TopBarInternetStatusFragment(
                     value = value.tips,
                     fontFamily = Raleway,
                     modifier = Modifier.padding(UiConst.Padding.SMALL),
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colors.surface
                 )
             }
         }
@@ -101,7 +102,10 @@ fun TopBarInternetStatusFragment(
                 end.linkTo(descTipsPlace.end)
             }
         ) {
-            SmallText(value = value.tipsNumber)
+            SmallText(
+                value = value.tipsNumber,
+                color = MaterialTheme.colors.onSurface
+            )
         }
 
         Box(

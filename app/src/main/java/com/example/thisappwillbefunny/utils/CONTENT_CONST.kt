@@ -23,10 +23,15 @@ val listOfFeature = listOf(
 )
 
 val listOfTipsInternetStatus = listOf(
-    TipInternetStatusModel("Tips №1", "Test"),
-    TipInternetStatusModel("Tips №23", "Test".repeat(12)),
-    TipInternetStatusModel("Tips №64", "Test ".repeat(5)),
-    TipInternetStatusModel("Tips №12", "Test ".repeat(23)),
+    TipInternetStatusModel("Tips №1", "Familiarize yourself with the internet"),
+    TipInternetStatusModel("Tips №23", "Enter website addresses carefully"),
+    TipInternetStatusModel("Tips №64", "Set a homepage"),
+    TipInternetStatusModel("Tips №433","Use Flight Mode when your child is using devices"),
+    TipInternetStatusModel("Tips №3"," Be aware of phishing attacks"),
+    TipInternetStatusModel("Tips №5"," Use two-factor authentication"),
+    TipInternetStatusModel("Tips №53"," Use Biometric identification"),
+    TipInternetStatusModel("Tips №83"," Use a VPN for extra security"),
+    TipInternetStatusModel("Tips №21","  Install anti-virus software and keep it up to date"),
 )
 
 val emptyRequestActivityModel = RequestActivityModel(
