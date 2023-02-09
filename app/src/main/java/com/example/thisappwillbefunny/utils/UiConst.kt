@@ -70,6 +70,11 @@ object UiConst {
             1f to Color(0xFF0ABFBC)
         )
 
+        val ActivityItem = Brush.horizontalGradient(
+            0.0f to androidx.compose.ui.graphics.Color.White.copy(.5f),
+            1.0f to androidx.compose.ui.graphics.Color.White.copy(.7f)
+        )
+
 
         object ActivityTipsStatus {
             val easy = Pair(
@@ -82,8 +87,8 @@ object UiConst {
 
             val normal = Pair(
                 Brush.horizontalGradient(
-                    0.0f to Color(0xFF7F00FF),
-                    1.0f to Color(0xFFE100FF)
+                    0.0f to Color(0xFFF7971E),
+                    1.0f to Color(0xFFFFD200)
                 ),
                 androidx.compose.ui.graphics.Color.White
             )

@@ -1,6 +1,8 @@
 package com.example.thisappwillbefunny.utils
 
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
+import com.example.thisappwillbefunny.R
 import com.example.thisappwillbefunny.domain.internet.user_activity.pojo.ActivityPOJO
 import com.example.thisappwillbefunny.domain.model.*
 
@@ -35,8 +37,8 @@ val listOfTipsInternetStatus = listOf(
 )
 
 val emptyRequestActivityModel = RequestActivityModel(
-    activityPOJO = ActivityPOJO(0.0,"","","",0,0.0,""),
-    accessibleModel = ActivityItemDescModel(UiConst.Brushes.MIAKA, 0, Color.Transparent, "", ""),
-    participants = ActivityItemDescModel(UiConst.Brushes.MIAKA, 0, Color.Transparent, "", ""),
-    pricing = ActivityItemDescModel(UiConst.Brushes.MIAKA, 0, Color.Transparent, "", ""),
+    activityPOJO = ActivityPOJO(0.0,"","","",0,0.0, ""),
+    accessibleModel = ActivityItemDescModel(UiConst.Brushes.MIAKA, 0, Color.Transparent, R.string.empty_text, ""),
+    participants = ActivityItemDescModel(UiConst.Brushes.MIAKA, 0, Color.Transparent, R.string.empty_text, ""),
+    pricing = ActivityItemDescModel(UiConst.Brushes.MIAKA, 0, Color.Transparent, R.string.empty_text, ""),
 )

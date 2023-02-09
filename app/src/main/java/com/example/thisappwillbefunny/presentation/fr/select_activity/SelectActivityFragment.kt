@@ -32,6 +32,12 @@ import com.example.thisappwillbefunny.presentation.ui.elements.text.SmallText
 import com.example.thisappwillbefunny.utils.emptyRequestActivityModel
 import kotlinx.coroutines.launch
 
+
+/**
+ * Сделать переход на главный экран по свайпу вправо.
+ * В первый раз сделать подсказку
+ */
+
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterialApi::class)
 @Composable
 fun SelectActivityFragment(viewModel: SelectActivityViewModel) {
@@ -45,7 +51,7 @@ fun SelectActivityFragment(viewModel: SelectActivityViewModel) {
         sheetContent = { BottomSheetContainer(content = bottomSheetContent) },
         sheetPeekHeight = UiConst.Padding.ZERO
     ) {
-        ActivityFragmentsContent(
+    ActivityFragmentsContent(
             viewModel = viewModel,
             showMoreDetail = { content ->
                 bottomSheetContent = content
@@ -181,8 +187,8 @@ private fun BottomSheetContent(value: RequestActivityModel) {
                 }
         ) {
             BottomSheetContentItem(nameItem = value.accessibleModel.nameTypeActivity, desc = stringResource(id = value.accessibleModel.desc) )
-            BottomSheetContentItem(nameItem = value.participants.nameTypeActivity, desc = stringResource(id = value.participants.desc) )
-            BottomSheetContentItem(nameItem = value.pricing.nameTypeActivity, desc = stringResource(id = value.pricing.desc))  
+            BottomSheetContentItem(nameItem = value.participants.nameTypeActivity, desc = "${stringResource(id = value.participants.desc)}(${value.activityPOJO.participants}) ")
+            BottomSheetContentItem(nameItem = value.pricing.nameTypeActivity, desc = stringResource(id = value.pricing.desc))
         }
 
     }

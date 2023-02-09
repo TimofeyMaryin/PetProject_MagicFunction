@@ -25,7 +25,7 @@ fun ActivityItem(
         modifier = Modifier
             .fillMaxWidth(.97f)
             .clip(UiConst.Round.SMALL)
-            .background(Color.White.copy(.7f))
+            .background(UiConst.Brushes.ActivityItem)
             .then(modifier),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
@@ -33,7 +33,7 @@ fun ActivityItem(
         MediumText(
             value = viewModel.currentRequest[index].activityPOJO.activity,
             maxLines = 1,
-            modifier = Modifier.weight(1f),
+            modifier = Modifier.weight(1f).padding(start = UiConst.Padding.SMALL),
             fontFamily = Raleway,
             fontWeight = FontWeight.Bold
         )
