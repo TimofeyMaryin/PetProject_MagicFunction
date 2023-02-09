@@ -5,6 +5,7 @@ import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,6 +14,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import com.airbnb.lottie.compose.*
@@ -21,19 +23,32 @@ import com.example.thisappwillbefunny.presentation.ui.elements.text.LargeText
 import com.example.thisappwillbefunny.presentation.ui.font.Raleway
 
 @Composable
-fun TipSwipeRight() {
+fun TipSwipeRight(
+    swipeRight: () -> Unit
+) {
 
-    var canShowAnim by remember { mutableStateOf(false) }
     val animateSpec: LottieCompositionResult = rememberLottieComposition(spec = LottieCompositionSpec.RawRes(R.raw.swipe_right))
 
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.Blue.copy(.4f)),
+            .background(Color.Black.copy(.8f))
+            .pointerInput(Unit){
+                detectDragGestures { _, dragAmount ->
+                    val (x,y) = dragAmount
+
+                    when {
+                        x > 0 -> {
+                            animateSpec.error
+                            swipeRight()
+                        }
+                    }
+                }
+            },
         contentAlignment = Alignment.Center
     ) {
         AnimatedVisibility(
-            visible = canShowAnim,
+            visible = animateSpec.isComplete,
             enter = fadeIn(tween(500)),
             exit = fadeOut(tween(500))
         ) {
@@ -42,14 +57,7 @@ fun TipSwipeRight() {
     }
 
 
-    LaunchedEffect(
-        key1 = animateSpec.isComplete,
-        block = {
-            if (animateSpec.isComplete) {
-                canShowAnim = true
-            }
-        }
-    )
+
 }
 
 @Composable

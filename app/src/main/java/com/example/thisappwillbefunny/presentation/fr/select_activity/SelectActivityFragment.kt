@@ -5,6 +5,7 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
@@ -14,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
@@ -23,8 +25,11 @@ import com.airbnb.lottie.compose.*
 import com.example.thisappwillbefunny.utils.UiConst
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.navigation.NavController
 import com.example.thisappwillbefunny.R
 import com.example.thisappwillbefunny.domain.model.RequestActivityModel
+import com.example.thisappwillbefunny.presentation.fr.tip_swipe.TipSwipeRight
+import com.example.thisappwillbefunny.presentation.navigation.CHOOSE_ACTIVITY_ROUTE
 import com.example.thisappwillbefunny.presentation.ui.elements.Container
 import com.example.thisappwillbefunny.presentation.ui.elements.text.LargeText
 import com.example.thisappwillbefunny.presentation.ui.elements.text.MediumText
@@ -40,7 +45,10 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterialApi::class)
 @Composable
-fun SelectActivityFragment(viewModel: SelectActivityViewModel) {
+fun SelectActivityFragment(
+    viewModel: SelectActivityViewModel,
+    navController: NavController
+) {
     val bottomSheetScaffoldState = rememberBottomSheetScaffoldState(bottomSheetState = BottomSheetState(BottomSheetValue.Collapsed))
     val coroutineScope = rememberCoroutineScope()
     var isLoadContent by remember { mutableStateOf(false) }
@@ -51,7 +59,9 @@ fun SelectActivityFragment(viewModel: SelectActivityViewModel) {
         sheetContent = { BottomSheetContainer(content = bottomSheetContent) },
         sheetPeekHeight = UiConst.Padding.ZERO
     ) {
-    ActivityFragmentsContent(
+
+        ActivityFragmentsContent(
+            navController = navController,
             viewModel = viewModel,
             showMoreDetail = { content ->
                 bottomSheetContent = content
@@ -75,8 +85,10 @@ fun SelectActivityFragment(viewModel: SelectActivityViewModel) {
 @Composable
 private fun ActivityFragmentsContent(
     viewModel: SelectActivityViewModel,
-    showMoreDetail: (RequestActivityModel) -> Unit
+    showMoreDetail: (RequestActivityModel) -> Unit,
+    navController: NavController
 ) {
+    var showTips by remember { mutableStateOf(false) }
     var isLoad by remember { mutableStateOf(false) }
     val configuration = LocalConfiguration.current
 
@@ -87,42 +99,62 @@ private fun ActivityFragmentsContent(
     )
 
 
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .pointerInput(Unit) {
+                detectDragGestures { _, dragAmount ->
+                    val (x,y ) = dragAmount
 
-    LazyColumn(
-        modifier = Modifier.fillMaxSize()
-    ) {
-        item {
-            LottieAnimation(
-                composition = animationSpec,
-                progress = progress,
-                alignment = Alignment.Center,
-                contentScale = ContentScale.FillWidth,
-                modifier = Modifier
-                    .background(Color.Cyan)
-                    .height(configuration.screenWidthDp.dp)
-            )
-        }
-        items(viewModel.defaultCountRequest) {
-            if (isLoad) {
-                Box(
+                    when {
+                        x > 0 -> { navController.navigate(CHOOSE_ACTIVITY_ROUTE) }
+                    }
+                }
+            },
+        contentAlignment = Alignment.Center
+    ){
+
+        LazyColumn(
+            modifier = Modifier.fillMaxSize()
+        ) {
+            item {
+                LottieAnimation(
+                    composition = animationSpec,
+                    progress = progress,
+                    alignment = Alignment.Center,
+                    contentScale = ContentScale.FillWidth,
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(vertical = UiConst.Padding.SMALL)
-                        .clickable { showMoreDetail(viewModel.currentRequest[it]) },
-                    contentAlignment = Alignment.Center,
-                ) {
-                    ActivityItem(
-                        modifier = Modifier,
-                        viewModel = viewModel,
-                        index = it
-                    )
+                        .background(Color.Cyan)
+                        .height(configuration.screenWidthDp.dp)
+                )
+            }
+            items(viewModel.defaultCountRequest) {
+                if (isLoad) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = UiConst.Padding.SMALL)
+                            .clickable { showMoreDetail(viewModel.currentRequest[it]) },
+                        contentAlignment = Alignment.Center,
+                    ) {
+                        ActivityItem(
+                            modifier = Modifier,
+                            viewModel = viewModel,
+                            index = it
+                        )
+                    }
                 }
             }
         }
 
-
+        if (!showTips) {
+            TipSwipeRight {
+                showTips = true
+            }
+        }
 
     }
+
 
     LaunchedEffect(key1 = Unit, block = {
         viewModel.currentRequest = viewModel.requestActivity()

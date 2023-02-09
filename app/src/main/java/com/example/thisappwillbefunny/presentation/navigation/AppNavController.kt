@@ -33,7 +33,6 @@ fun AppNavController(navController: NavHostController) {
     NavHost(navController = navController, startDestination = CHOOSE_ACTIVITY_ROUTE ) {
         composable(CHOOSE_ACTIVITY_ROUTE) {
             ChooseActivityFragment(viewModel = chooseActivityViewModel)
-
         }
         composable(GET_RANDOM_CAT_ROUTE) {
             if (isOnline(context = context)) {
@@ -51,7 +50,7 @@ fun AppNavController(navController: NavHostController) {
         }
         composable(SELECT_ACTIVITY_ROUTE) {
             if (isOnline(context = context)) {
-                SelectActivityFragment(viewModel = selectActivityViewModel)
+                SelectActivityFragment(viewModel = selectActivityViewModel, navController = navController)
             } else {
                 LostInternetConnection()
             }
