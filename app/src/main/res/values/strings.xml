@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">Magic Function</string>
+
+    <string name="accessibility_easy">a</string>
+    <string name="accessibility_normal">b</string>
+    <string name="accessibility_hard">c</string>
+
+    <string name="participants_easy">a</string>
+    <string name="participants_normal">b</string>
+    <string name="participants_hard">c</string>
+
+    <string name="price_easy">a</string>
+    <string name="price_normal">b</string>
+    <string name="price_hard">c</string>
 </resources>

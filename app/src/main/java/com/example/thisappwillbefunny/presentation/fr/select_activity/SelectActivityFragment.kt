@@ -16,6 +16,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import com.airbnb.lottie.compose.*
@@ -129,7 +130,9 @@ private fun ActivityFragmentsContent(
 @Composable
 private fun BottomSheetContainer(content: RequestActivityModel) {
     Column(
-        modifier = Modifier.fillMaxWidth().background(Color.Transparent),
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(Color.Transparent),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Box(
@@ -177,9 +180,9 @@ private fun BottomSheetContent(value: RequestActivityModel) {
                     bottom.linkTo(parent.bottom)
                 }
         ) {
-            BottomSheetContentItem(nameItem = value.accessibleModel.nameTypeActivity, desc = value.accessibleModel.desc )
-            BottomSheetContentItem(nameItem = value.participants.nameTypeActivity, desc = value.participants.desc)
-            BottomSheetContentItem(nameItem = value.pricing.nameTypeActivity, desc = value.pricing.desc)
+            BottomSheetContentItem(nameItem = value.accessibleModel.nameTypeActivity, desc = stringResource(id = value.accessibleModel.desc) )
+            BottomSheetContentItem(nameItem = value.participants.nameTypeActivity, desc = stringResource(id = value.participants.desc) )
+            BottomSheetContentItem(nameItem = value.pricing.nameTypeActivity, desc = stringResource(id = value.pricing.desc))  
         }
 
     }
