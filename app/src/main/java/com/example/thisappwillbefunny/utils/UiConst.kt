@@ -48,6 +48,10 @@ object UiConst {
         val LINE_HEIGHT = 1.dp
         val BIG_LINE_HEIGHT = 3.dp
         val HEIGHT_BOTTOM_SHEET_EL = 40.dp
+
+        val SmallIcon = 37.dp
+        val SmallIconBgSize = 45.dp
+        val SmallIconBorder = 55.dp
     }
 
     object Color {
@@ -58,6 +62,18 @@ object UiConst {
     val DEFAULT_BLUR = 14.dp
 
     object Brushes {
+        val FilterBg: Brush = Brush.linearGradient(
+            0.0f to androidx.compose.ui.graphics.Color(0xFF20002c),
+            1.0f to androidx.compose.ui.graphics.Color(0xFFcbb4d4)
+        )
+        val Item: Brush = Brush.linearGradient(
+            0.0f to androidx.compose.ui.graphics.Color(0xfFfc00ff),
+            1.0f to androidx.compose.ui.graphics.Color(0xFF00dbde)
+        )
+        val Refresh: Brush = Brush.linearGradient(
+            0.0f to androidx.compose.ui.graphics.Color(0xFFee0979),
+            0.5f to androidx.compose.ui.graphics.Color(0xFFff6a00),
+        )
         val BLUE_PINK = Brush.linearGradient(
             0.0f to Color(0xFFFF3CAC),
             0.6f to Color(0xFF784BA0),

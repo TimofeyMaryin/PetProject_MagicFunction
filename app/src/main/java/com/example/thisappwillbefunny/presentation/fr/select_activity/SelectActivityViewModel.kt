@@ -27,10 +27,10 @@ class SelectActivityViewModel : ViewModel() {
     val listOfFilterElement by mutableStateOf(
         listOf(
 
-            FilterElementModel(R.drawable.reload, mutableStateOf(true)),
-            FilterElementModel(R.drawable.accessibility_easy, mutableStateOf(false)),
-            FilterElementModel(R.drawable.particants_easy, mutableStateOf(false)),
-            FilterElementModel(R.drawable.price_ez, mutableStateOf(false)),
+            FilterElementModel(R.drawable.reload, mutableStateOf(true), UiConst.Brushes.Refresh),
+            FilterElementModel(R.drawable.accessibility_easy, mutableStateOf(false), UiConst.Brushes.Item),
+            FilterElementModel(R.drawable.particants_easy, mutableStateOf(false), UiConst.Brushes.Item),
+            FilterElementModel(R.drawable.price_ez, mutableStateOf(false), UiConst.Brushes.Item),
         )
     )
 

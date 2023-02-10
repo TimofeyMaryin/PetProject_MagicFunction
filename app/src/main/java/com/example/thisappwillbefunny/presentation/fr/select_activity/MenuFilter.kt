@@ -33,9 +33,9 @@ fun MenuFilter(viewModel: SelectActivityViewModel) {
 
         LazyRow(
             modifier = Modifier
-                .clip(UiConst.Round.NORMAL)
+                .clip(UiConst.Round.SMALL)
                 .fillMaxWidth(.95f)
-                .background(Color.White.copy(.8f)),
+                .background(UiConst.Brushes.FilterBg),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
@@ -64,7 +64,7 @@ private fun MenuFilterItem(
     Box(
         modifier = Modifier
             .clip(UiConst.Round.SMALL)
-            .size(UiConst.Size.ACTIVITY_ITEM_SIZE)
+            .size(UiConst.Size.SmallIconBorder)
             .border(
                 BorderStroke(
                     UiConst.Size.BIG_LINE_HEIGHT,
@@ -75,14 +75,17 @@ private fun MenuFilterItem(
             .clickable { onClick() },
         contentAlignment = Alignment.Center
     ) {
-        Icon(
-            painter = painterResource(id = value.icon),
-            contentDescription = null,
-            modifier = Modifier
-                .clip(UiConst.Round.SMALL)
-                .size(UiConst.Size.EXIT_BUTTON)
-                .background(Color.Magenta.copy(.4f))
-        )
+        Box(
+            modifier = Modifier.clip(UiConst.Round.SMALL).size(UiConst.Size.SmallIconBgSize).background(value.bg),
+            contentAlignment = Alignment.Center
+        ){
+
+            Icon(
+                painter = painterResource(id = value.icon),
+                contentDescription = null,
+                modifier = Modifier.size(UiConst.Size.SmallIcon)
+            )
+        }
     }
 }
 
