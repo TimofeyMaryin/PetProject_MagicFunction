@@ -132,9 +132,6 @@ private fun ActivityFragmentsContent(
                         .height(configuration.screenWidthDp.dp)
                 )
             }
-            item {
-                MenuFilter(viewModel = viewModel)
-            }
             items(viewModel.defaultCountRequest) {
                 if (isLoad) {
                     Box(

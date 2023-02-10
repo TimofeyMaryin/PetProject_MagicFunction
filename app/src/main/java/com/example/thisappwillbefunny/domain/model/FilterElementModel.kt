@@ -11,6 +11,6 @@ import androidx.compose.ui.graphics.Brush
 data class FilterElementModel(
     val icon: Int,
     var isActive: MutableState<Boolean>,
-    val bg: Brush
-
+    val bg: Brush,
+    val onClick: () -> Unit = {},
 )
