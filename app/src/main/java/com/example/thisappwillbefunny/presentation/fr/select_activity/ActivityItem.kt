@@ -10,6 +10,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.constraintlayout.compose.ConstraintLayout
 import com.example.thisappwillbefunny.domain.model.ActivityItemDescModel
 import com.example.thisappwillbefunny.presentation.ui.elements.text.MediumText
 import com.example.thisappwillbefunny.presentation.ui.font.Raleway
@@ -21,32 +22,62 @@ fun ActivityItem(
     viewModel: SelectActivityViewModel,
     index: Int,
 ) {
-    Row(
-        modifier = Modifier
+    ConstraintLayout(
+        modifier
             .fillMaxWidth(.97f)
             .clip(UiConst.Round.SMALL)
             .background(UiConst.Brushes.ActivityItem)
-            .then(modifier),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween
+            .then(modifier)
     ) {
-        MediumText(
-            value = viewModel.currentRequest[index].activityPOJO.activity,
-            maxLines = 1,
-            modifier = Modifier.weight(1f).padding(start = UiConst.Padding.SMALL),
-            fontFamily = Raleway,
-            fontWeight = FontWeight.Bold
+        val (content, bg, icon) = createRefs()
+
+
+        Icon(
+            painter = painterResource(id = viewModel.selectCurrentIconType(viewModel.currentRequest[index].activityPOJO.type)),
+            contentDescription = null,
+            modifier = Modifier.constrainAs(icon) {
+                start.linkTo(parent.start)
+                top.linkTo(parent.top)
+                bottom.linkTo(parent.bottom)
+            }
         )
-        
+
+
+
         Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .constrainAs(content) {
+                    top.linkTo(parent.top)
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
+                    bottom.linkTo(parent.bottom)
+                },
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center,
-            modifier = Modifier.weight(1f)
+            horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            ActivityItemDesc(model = viewModel.activityRepo.getAccessibility(viewModel.currentRequest[index].activityPOJO.accessibility.toFloat()))
-            ActivityItemDesc(model = viewModel.activityRepo.getParticipants(viewModel.currentRequest[index].activityPOJO.participants))
-            ActivityItemDesc(model = viewModel.activityRepo.getPrice(viewModel.currentRequest[index].activityPOJO.price.toFloat()))
+            MediumText(
+                value = viewModel.currentRequest[index].activityPOJO.activity,
+                maxLines = 1,
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(start = UiConst.Padding.SMALL),
+                fontFamily = Raleway,
+                fontWeight = FontWeight.Bold
+            )
+
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center,
+                modifier = Modifier.weight(1f)
+            ) {
+                ActivityItemDesc(model = viewModel.activityRepo.getAccessibility(viewModel.currentRequest[index].activityPOJO.accessibility.toFloat()))
+                ActivityItemDesc(model = viewModel.activityRepo.getParticipants(viewModel.currentRequest[index].activityPOJO.participants))
+                ActivityItemDesc(model = viewModel.activityRepo.getPrice(viewModel.currentRequest[index].activityPOJO.price.toFloat()))
+            }
         }
+
+
     }
 }
 
@@ -62,7 +93,10 @@ private fun ActivityItemDesc(
             .background(Color.Transparent),
         contentAlignment = Alignment.Center
     ) {
-        Box(modifier = Modifier.clip(UiConst.Round.NORMAL).background(model.bg).size(UiConst.Size.ACTIVITY_ITEM_SIZE))
+        Box(modifier = Modifier
+            .clip(UiConst.Round.NORMAL)
+            .background(model.bg)
+            .size(UiConst.Size.ACTIVITY_ITEM_SIZE))
         Icon(
             painter = painterResource(id = model.icon),
             contentDescription = null,

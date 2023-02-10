@@ -46,6 +46,19 @@ class SelectActivityViewModel : ViewModel() {
         return result
     }
 
+    fun selectCurrentIconType(type: String): Int {
+        return when(type) {
+            "education" -> R.drawable.education
+            "recreational" -> R.drawable.recreational
+            "social" -> R.drawable.social
+            "diy" -> R.drawable.safety_pin_coucou_svgrepo_com
+            "charity" -> R.drawable.charity_svgrepo
+            "cooking" -> R.drawable.cooking_svgrepo
+            "relaxation" -> R.drawable.relaxation
+            "music" -> R.drawable.music_svgrepo
+            else -> R.drawable.busywork
+        }
+    }
 
 
 
