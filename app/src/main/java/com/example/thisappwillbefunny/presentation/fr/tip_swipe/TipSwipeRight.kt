@@ -38,7 +38,7 @@ fun TipSwipeRight(
                     val (x, y) = dragAmount
 
                     when {
-                        x > 400 -> {
+                        x > 200 -> {
                             animateSpec.error
                             swipeRight()
                         }
