@@ -59,7 +59,7 @@ object UiConst {
         val EXIT_BUTTON_ICON = androidx.compose.ui.graphics.Color.Red
     }
 
-    val DEFAULT_BLUR = 14.dp
+    val DEFAULT_BLUR = 40.dp
 
     object Brushes {
         val FilterBg: Brush = Brush.linearGradient(

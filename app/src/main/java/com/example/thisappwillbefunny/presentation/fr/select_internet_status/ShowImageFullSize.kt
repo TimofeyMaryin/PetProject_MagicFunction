@@ -3,15 +3,18 @@ package com.example.thisappwillbefunny.presentation.fr.select_internet_status
 import androidx.compose.animation.*
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.blur
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.constraintlayout.compose.ConstraintLayout
 import coil.compose.AsyncImage
+import com.example.thisappwillbefunny.presentation.fr.tip_swipe.TipSwipeVertical
 import com.example.thisappwillbefunny.presentation.ui.elements.AppButton
 import com.example.thisappwillbefunny.utils.UiConst
 import kotlinx.coroutines.delay
@@ -22,14 +25,29 @@ fun ShowImageFullSize(
     viewModel: SelectInternetStatusViewModel,
     onBack: () -> Unit,
 ) {
+    var isShowTips by remember { mutableStateOf(false) }
+
+
     var visibleAnimation by remember { mutableStateOf(false) }
     var canCloseWin by remember { mutableStateOf(false) }
 
     ConstraintLayout(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize().pointerInput(Unit){
+            detectDragGestures { _, dragAmount ->
+                val (x,y) = dragAmount
+
+                when {
+                    y < 400 -> {
+                        visibleAnimation = false
+                        canCloseWin = true
+                    }
+                }
+            }
+        }
     ) {
 
-        val (image, bottomButtonPlace, iconBack) = createRefs()
+        val (image, bottomButtonPlace, tips) = createRefs()
+
 
         AnimatedVisibility(
             visible = visibleAnimation,
@@ -64,7 +82,12 @@ fun ShowImageFullSize(
                 )
             }
 
+            if (!isShowTips) {
 
+                TipSwipeVertical{
+                    isShowTips = !isShowTips
+                }
+            }
 
         }
 
@@ -77,15 +100,12 @@ fun ShowImageFullSize(
             }
         ) {
             BottomButtonPlace(
-                modifier = Modifier,
                 onDownload = { viewModel.downloadImage() },
-                onBack = {
-                    visibleAnimation = false
-                    canCloseWin = true
-                }
             )
 
         }
+
+
 
 
 
@@ -104,25 +124,11 @@ fun ShowImageFullSize(
 
 @Composable
 private fun BottomButtonPlace(
-    modifier: Modifier,
     onDownload: () -> Unit,
-    onBack: ()-> Unit
 ) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .then(modifier),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Center
-    ) {
-        AppButton(
-            modifier = Modifier.weight(1f),
-            text = "Download",
-            onClick = { onDownload() }, bgColor = Color.Green
-        )
-        AppButton(
-            modifier = Modifier.weight(1f),
-            text = "Back", onClick = { onBack() }, bgColor = Color.Red
-        )
-    }
+    AppButton(
+        modifier = Modifier.fillMaxWidth(),
+        text = "Download",
+        onClick = { onDownload() }, bgColor = Color.Green
+    )
 }
