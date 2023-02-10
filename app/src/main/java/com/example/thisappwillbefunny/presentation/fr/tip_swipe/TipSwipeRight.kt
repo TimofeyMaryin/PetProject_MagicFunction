@@ -1,5 +1,6 @@
 package com.example.thisappwillbefunny.presentation.fr.tip_swipe
 
+import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
@@ -33,12 +34,13 @@ fun TipSwipeRight(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.Black.copy(.8f))
-            .pointerInput(Unit){
+            .pointerInput(Unit) {
                 detectDragGestures { _, dragAmount ->
-                    val (x,y) = dragAmount
+                    val (x, y) = dragAmount
 
                     when {
-                        x > 0 -> {
+                        x > 100 -> {
+                            Log.e("TipSwipeRight", "TipSwipeRight: $x", )
                             animateSpec.error
                             swipeRight()
                         }

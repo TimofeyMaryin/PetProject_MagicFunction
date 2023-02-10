@@ -15,6 +15,8 @@ object UiConst {
         val BIG_BLOCK_ROUND = RoundedCornerShape(40.dp)
         val NORMAL = RoundedCornerShape(16.dp)
         val SMALL = RoundedCornerShape(8.dp)
+
+        const val SMALL_FLOAT = 8f
     }
 
     object Padding {
@@ -44,6 +46,7 @@ object UiConst {
 
         val BOTTOM_SHEET_DETAIL = Pair(50.dp, 4.dp)
         val LINE_HEIGHT = 1.dp
+        val BIG_LINE_HEIGHT = 3.dp
         val HEIGHT_BOTTOM_SHEET_EL = 40.dp
     }
 
