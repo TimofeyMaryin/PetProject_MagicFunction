@@ -39,8 +39,7 @@ fun TipSwipeRight(
                     val (x, y) = dragAmount
 
                     when {
-                        x > 100 -> {
-                            Log.e("TipSwipeRight", "TipSwipeRight: $x", )
+                        x > 400 -> {
                             animateSpec.error
                             swipeRight()
                         }
