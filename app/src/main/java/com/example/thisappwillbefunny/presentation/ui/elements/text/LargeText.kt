@@ -29,5 +29,5 @@ fun LargeText(
         color = color,
         textAlign = textAlign,
         fontWeight = fontWeight,
-        fontStyle = fontStyle
+        fontStyle = fontStyle,
     )

@@ -16,7 +16,7 @@ fun MediumText(
     value: String,
     color: Color = MaterialTheme.colors.background,
     modifier: Modifier = Modifier,
-    fontFamily: androidx.compose.ui.text.font.FontFamily = Raleway,
+    fontFamily: androidx.compose.ui.text.font.FontFamily? = Raleway,
     fontWeight: FontWeight = FontWeight.Normal,
     maxLines: Int = Int.MAX_VALUE
 ) =

@@ -19,6 +19,7 @@ import com.airbnb.lottie.compose.*
 import com.example.thisappwillbefunny.R
 import com.example.thisappwillbefunny.presentation.ui.elements.text.LargeText
 import com.example.thisappwillbefunny.presentation.ui.font.Raleway
+import com.example.thisappwillbefunny.utils.designTip
 import kotlinx.coroutines.delay
 
 @Composable
@@ -35,7 +36,7 @@ fun TipSwipeVertical(swipe: () -> Unit) {
                     val (x, y) = dragAmount
 
                     when {
-                        y < 400 -> {
+                        y < 200 -> {
                             isSwipe = !isSwipe
                             showAnim = !showAnim
                         }

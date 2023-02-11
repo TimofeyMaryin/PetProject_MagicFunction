@@ -1,6 +1,8 @@
 package com.example.thisappwillbefunny.presentation.fr.select_activity
 
 import android.util.Log
+import androidx.compose.animation.*
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -12,6 +14,7 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -20,23 +23,29 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import com.airbnb.lottie.compose.*
 import com.example.thisappwillbefunny.utils.UiConst
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
 import com.example.thisappwillbefunny.R
+import com.example.thisappwillbefunny.domain.model.ActivityItemDescModel
 import com.example.thisappwillbefunny.domain.model.RequestActivityModel
 import com.example.thisappwillbefunny.presentation.fr.tip_swipe.TipSwipeRight
 import com.example.thisappwillbefunny.presentation.navigation.CHOOSE_ACTIVITY_ROUTE
+import com.example.thisappwillbefunny.presentation.navigation.SELECT_ACTIVITY_ROUTE
 import com.example.thisappwillbefunny.presentation.ui.elements.Container
 import com.example.thisappwillbefunny.presentation.ui.elements.text.LargeText
 import com.example.thisappwillbefunny.presentation.ui.elements.text.MediumText
 import com.example.thisappwillbefunny.presentation.ui.elements.text.SmallText
 import com.example.thisappwillbefunny.utils.emptyRequestActivityModel
+import com.example.thisappwillbefunny.utils.makeHorizontalLine
+import com.example.thisappwillbefunny.utils.swipeRightToReturn
 import kotlinx.coroutines.launch
 
 
@@ -104,17 +113,7 @@ private fun ActivityFragmentsContent(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .pointerInput(Unit) {
-                detectDragGestures { _, dragAmount ->
-                    val (x, y) = dragAmount
-
-                    when {
-                        x > 0 -> {
-                            navController.navigate(CHOOSE_ACTIVITY_ROUTE)
-                        }
-                    }
-                }
-            },
+            .swipeRightToReturn { navController.navigate(CHOOSE_ACTIVITY_ROUTE) },
         contentAlignment = Alignment.Center
     ){
 
@@ -210,7 +209,8 @@ private fun BottomSheetContent(value: RequestActivityModel) {
             LargeText(
                 value = value.activityPOJO.activity,
                 fontWeight = FontWeight.ExtraBold,
-                fontStyle = FontStyle.Italic
+                fontStyle = FontStyle.Italic,
+                textAlign = TextAlign.Center
             )
         }
         Column(
@@ -226,8 +226,50 @@ private fun BottomSheetContent(value: RequestActivityModel) {
             BottomSheetContentItem(nameItem = value.accessibleModel.nameTypeActivity, desc = stringResource(id = value.accessibleModel.desc) )
             BottomSheetContentItem(nameItem = value.participants.nameTypeActivity, desc = "${stringResource(id = value.participants.desc)}(${value.activityPOJO.participants}) ")
             BottomSheetContentItem(nameItem = value.pricing.nameTypeActivity, desc = stringResource(id = value.pricing.desc))
+            LikeThisActivity(value = value.pricing)
         }
 
+    }
+}
+
+@Composable
+private fun LikeThisActivity(value: ActivityItemDescModel) {
+
+    val tintIcon by animateColorAsState(targetValue = if(value.isLike.value) Color.Red else Color.Black)
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable { value.isLike.value = !value.isLike.value }
+            .defaultMinSize(minHeight = UiConst.Size.HEIGHT_BOTTOM_SHEET_EL),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Box( modifier = Modifier.makeHorizontalLine())
+
+        Row(
+            modifier = Modifier.fillMaxWidth().defaultMinSize(minHeight = UiConst.Size.HEIGHT_BOTTOM_SHEET_EL),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center
+        ) {
+            Icon(
+                painter = painterResource(id = R.drawable.like_svgrepo),
+                contentDescription = null,
+                tint = tintIcon,
+                modifier = Modifier.size(UiConst.Size.SmallIconBgSize)
+            )
+            AnimatedVisibility(
+                visible = value.isLike.value,
+                enter = slideInVertically(tween(300)) + fadeIn(tween(300)),
+                exit = slideOutVertically(tween(300)) + fadeOut(tween(300))
+            ) {
+                MediumText(
+                    value = "Liked",
+                    color = Color.Red,
+                    fontWeight = FontWeight.Bold,
+                    fontFamily = null
+                )
+            }
+
+        }
     }
 }
 
@@ -242,10 +284,7 @@ private fun BottomSheetContentItem(
             .fillMaxWidth()
             .defaultMinSize(minHeight = UiConst.Size.HEIGHT_BOTTOM_SHEET_EL)
     ) {
-        Box(modifier = Modifier
-            .fillMaxWidth()
-            .height(UiConst.Size.LINE_HEIGHT)
-            .background(Color.Gray))
+        Box(modifier = Modifier.makeHorizontalLine())
         Container {
             Row(
                 modifier = Modifier.fillMaxWidth(),
