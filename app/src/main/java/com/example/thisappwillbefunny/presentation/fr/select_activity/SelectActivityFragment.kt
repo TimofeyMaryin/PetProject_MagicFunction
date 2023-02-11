@@ -103,6 +103,7 @@ private fun ActivityFragmentsContent(
     navController: NavController,
     isShowTips: Boolean
 ) {
+    var _isShowTips by remember { mutableStateOf(false) }
     var isLoad by remember { mutableStateOf(false) }
     val configuration = LocalConfiguration.current
 
@@ -153,9 +154,9 @@ private fun ActivityFragmentsContent(
             }
         }
 
-        if (!isShowTips) {
+        if (!_isShowTips) {
             TipSwipeRight {
-                MainActivity().showTips()
+                _isShowTips = !_isShowTips
             }
         }
 

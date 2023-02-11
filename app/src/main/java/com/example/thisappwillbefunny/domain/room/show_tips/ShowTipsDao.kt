@@ -8,7 +8,7 @@ import androidx.room.Query
 interface ShowTipsDao {
 
     @Query("SELECT * FROM tip")
-    fun getTip(): ShowTips
+    fun getTip(): List<ShowTips>
 
     @Insert
     fun insertTip(tip: ShowTips)

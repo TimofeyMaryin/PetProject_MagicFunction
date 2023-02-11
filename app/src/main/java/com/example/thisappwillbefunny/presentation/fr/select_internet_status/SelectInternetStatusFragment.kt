@@ -109,7 +109,7 @@ fun SelectInternetStatusFragment(
                 bottom.linkTo(parent.bottom)
                 start.linkTo(parent.start)
             }) {
-                MainActivity().showTips()
+
             }
         }
     }

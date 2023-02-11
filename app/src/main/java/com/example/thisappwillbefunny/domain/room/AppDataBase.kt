@@ -22,21 +22,23 @@ abstract class AppDataBase: RoomDatabase() {
         @Volatile var INSTANCE: AppDataBase? = null
 
         fun getInstance(application: Application): AppDataBase {
-            var instance = INSTANCE
-
             synchronized(this) {
-                if (instance == null){
+                var instance = INSTANCE
+
+                if (instance == null) {
                     instance = Room.databaseBuilder(
                         application,
                         AppDataBase::class.java,
-                        "tips"
+                        "database.dp"
                     ).fallbackToDestructiveMigration().allowMainThreadQueries().build()
                 }
-            }
 
-            INSTANCE = instance
-            return INSTANCE!!
+                INSTANCE = instance
+                return INSTANCE!!
+            }
         }
+
+
     }
-    
+
 }

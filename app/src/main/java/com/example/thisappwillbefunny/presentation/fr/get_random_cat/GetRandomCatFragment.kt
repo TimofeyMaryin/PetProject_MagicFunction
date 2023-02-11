@@ -86,7 +86,7 @@ fun GetRandomCatFragment(
                     end.linkTo(parent.end)
                 }
             ) {
-                MainActivity().showTips()
+
             }
         }
 
