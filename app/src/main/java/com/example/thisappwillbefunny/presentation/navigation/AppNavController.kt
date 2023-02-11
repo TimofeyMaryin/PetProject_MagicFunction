@@ -36,14 +36,14 @@ fun AppNavController(navController: NavHostController) {
         }
         composable(GET_RANDOM_CAT_ROUTE) {
             if (isOnline(context = context)) {
-                GetRandomCatFragment(viewModel = getRandomCatViewModel)
+                GetRandomCatFragment(viewModel = getRandomCatViewModel, navController = navController)
             } else {
                 LostInternetConnection()
             }
         }
         composable(SELECT_INTERNET_STATUS_ROUTE) {
             if (isOnline(context = context)) {
-                SelectInternetStatusFragment(viewModel = selectInternetStatusViewModel)
+                SelectInternetStatusFragment(viewModel = selectInternetStatusViewModel, navController = navController)
             } else {
                 LostInternetConnection()
             }

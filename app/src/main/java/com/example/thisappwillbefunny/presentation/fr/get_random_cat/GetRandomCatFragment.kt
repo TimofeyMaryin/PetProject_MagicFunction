@@ -10,21 +10,27 @@ import androidx.compose.ui.draw.blur
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.navigation.NavController
 import coil.compose.AsyncImagePainter
 import coil.compose.SubcomposeAsyncImage
 import coil.compose.SubcomposeAsyncImageContent
 import com.example.thisappwillbefunny.R
+import com.example.thisappwillbefunny.presentation.fr.tip_swipe.TipSwipeRight
 import com.example.thisappwillbefunny.presentation.ui.elements.AppButton
 import com.example.thisappwillbefunny.utils.UiConst
+import com.example.thisappwillbefunny.utils.swipeRightToReturn
 
 @Composable
 fun GetRandomCatFragment(
-    viewModel: GetRandomCatViewModel
+    viewModel: GetRandomCatViewModel,
+    navController: NavController
 ) {
+    var isShowTips by remember { mutableStateOf(false) }
+
     ConstraintLayout(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize().swipeRightToReturn { navController.popBackStack() }
     ) {
-        val (image, buttonPlace) = createRefs()
+        val (image, buttonPlace, tips) = createRefs()
 
         var result by remember { mutableStateOf("") }
         var changeImage by remember { mutableStateOf(1L) }
@@ -50,7 +56,9 @@ fun GetRandomCatFragment(
                         .blur(UiConst.Size.BtnIconSize),
                     contentScale = ContentScale.FillHeight
                 )
-                Box(modifier = Modifier.fillMaxSize().background(Color.Black.copy(.4f)))
+                Box(modifier = Modifier
+                    .fillMaxSize()
+                    .background(Color.Black.copy(.4f)))
                 SubcomposeAsyncImageContent(
                     contentScale = ContentScale.FillWidth,
                     modifier = Modifier.fillMaxWidth()
@@ -63,8 +71,23 @@ fun GetRandomCatFragment(
                 bottom.linkTo(parent.bottom)
             },
             onReload = { changeImage++ },
-            onExit = { viewModel.popBackStack() }
+            onDownload = { viewModel.popBackStack() }
         )
+
+        if (!isShowTips){
+            TipSwipeRight(
+                modifier = Modifier.constrainAs(tips){
+                    top.linkTo(parent.top)
+                    bottom.linkTo(parent.bottom)
+
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
+                }
+            ) {
+                isShowTips = true
+            }
+        }
+
 
 
 
@@ -82,7 +105,7 @@ fun GetRandomCatFragment(
 private fun BottomButtonPlace(
     modifier: Modifier,
     onReload: () -> Unit,
-    onExit: () -> Unit
+    onDownload: () -> Unit
 ) {
     Row(
         modifier = Modifier
@@ -101,10 +124,10 @@ private fun BottomButtonPlace(
         )
         AppButton(
             modifier = Modifier.weight(1f),
-            text = "Back",
-            onClick = { onExit() },
+            text = "Download",
+            onClick = { onDownload() },
             bgColor = Color.DarkGray,
-            icon = R.drawable.back,
+            icon = R.drawable.download,
             contentColor = Color.White
         )
     }

@@ -25,6 +25,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import coil.compose.AsyncImagePainter
 import coil.compose.SubcomposeAsyncImage
@@ -35,6 +36,7 @@ import com.example.thisappwillbefunny.domain.use_cases.GetCatsDescInternetStatus
 import com.example.thisappwillbefunny.presentation.ui.elements.AppButton
 import com.example.thisappwillbefunny.domain.model.CatsInternetStatusModel
 import com.example.thisappwillbefunny.domain.model.TipInternetStatusModel
+import com.example.thisappwillbefunny.presentation.fr.tip_swipe.TipSwipeRight
 import com.example.thisappwillbefunny.presentation.ui.elements.CarouselTips
 import com.example.thisappwillbefunny.presentation.ui.elements.Container
 import com.example.thisappwillbefunny.presentation.ui.elements.LoadingShimmerEffect
@@ -44,20 +46,25 @@ import com.example.thisappwillbefunny.presentation.ui.elements.text.SmallText
 import com.example.thisappwillbefunny.presentation.ui.font.Raleway
 import com.example.thisappwillbefunny.utils.UiConst
 import com.example.thisappwillbefunny.utils.listOfTipsInternetStatus
+import com.example.thisappwillbefunny.utils.swipeRightToReturn
 import kotlinx.coroutines.delay
 import kotlin.random.Random
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun SelectInternetStatusFragment(
-    viewModel: SelectInternetStatusViewModel
+    viewModel: SelectInternetStatusViewModel,
+    navController: NavController
 ) {
+    var isShowTips by remember { mutableStateOf(false) }
     ConstraintLayout(
         modifier = Modifier.fillMaxSize()
     ) {
-        val (content, topBar) = createRefs()
+        val (content, topBar, tips) = createRefs()
         var showFullSizeImage by remember { mutableStateOf(false) }
         var currentUrl by remember { mutableStateOf("") }
+
+
 
 
          LazyColumn(
@@ -83,6 +90,7 @@ fun SelectInternetStatusFragment(
                 .constrainAs(content) {
                     top.linkTo(topBar.bottom, margin = UiConst.Padding.BETWEEN_ELEMENT)
                 }
+                .swipeRightToReturn { navController.popBackStack() }
         )
 
         if (showFullSizeImage){
@@ -91,6 +99,17 @@ fun SelectInternetStatusFragment(
                 viewModel = viewModel,
                 onBack = { showFullSizeImage = false }
             )
+        }
+
+        if(!isShowTips){
+            TipSwipeRight(modifier = Modifier.constrainAs(tips) {
+                top.linkTo(parent.top)
+                end.linkTo(parent.end)
+                bottom.linkTo(parent.bottom)
+                start.linkTo(parent.start)
+            }) {
+                isShowTips = true
+            }
         }
     }
 }

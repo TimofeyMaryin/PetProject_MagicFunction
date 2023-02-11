@@ -23,6 +23,7 @@ import com.example.thisappwillbefunny.utils.swipeRightToReturn
 
 @Composable
 fun TipSwipeRight(
+    modifier: Modifier = Modifier,
     swipeRight: () -> Unit
 ) {
 
@@ -34,7 +35,8 @@ fun TipSwipeRight(
             .swipeRightToReturn {
                 animateSpec.error
                 swipeRight()
-            },
+            }
+            .then(modifier),
         contentAlignment = Alignment.Center
     ) {
         AnimatedVisibility(
