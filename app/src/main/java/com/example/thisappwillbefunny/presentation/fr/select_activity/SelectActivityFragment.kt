@@ -36,6 +36,7 @@ import androidx.navigation.NavController
 import com.example.thisappwillbefunny.R
 import com.example.thisappwillbefunny.domain.model.ActivityItemDescModel
 import com.example.thisappwillbefunny.domain.model.RequestActivityModel
+import com.example.thisappwillbefunny.presentation.MainActivity
 import com.example.thisappwillbefunny.presentation.fr.tip_swipe.TipSwipeRight
 import com.example.thisappwillbefunny.presentation.navigation.CHOOSE_ACTIVITY_ROUTE
 import com.example.thisappwillbefunny.presentation.navigation.SELECT_ACTIVITY_ROUTE
@@ -58,7 +59,8 @@ import kotlinx.coroutines.launch
 @Composable
 fun SelectActivityFragment(
     viewModel: SelectActivityViewModel,
-    navController: NavController
+    navController: NavController,
+    isShowTips: Boolean,
 ) {
     val bottomSheetScaffoldState = rememberBottomSheetScaffoldState(bottomSheetState = BottomSheetState(BottomSheetValue.Collapsed))
     val coroutineScope = rememberCoroutineScope()
@@ -85,7 +87,8 @@ fun SelectActivityFragment(
                         bottomSheetScaffoldState.bottomSheetState.collapse()
                     }
                 }
-            }
+            },
+            isShowTips = isShowTips
         )
     }
 
@@ -97,9 +100,9 @@ fun SelectActivityFragment(
 private fun ActivityFragmentsContent(
     viewModel: SelectActivityViewModel,
     showMoreDetail: (RequestActivityModel) -> Unit,
-    navController: NavController
+    navController: NavController,
+    isShowTips: Boolean
 ) {
-    var showTips by remember { mutableStateOf(false) }
     var isLoad by remember { mutableStateOf(false) }
     val configuration = LocalConfiguration.current
 
@@ -150,9 +153,9 @@ private fun ActivityFragmentsContent(
             }
         }
 
-        if (!showTips) {
+        if (!isShowTips) {
             TipSwipeRight {
-                showTips = true
+                MainActivity().showTips()
             }
         }
 

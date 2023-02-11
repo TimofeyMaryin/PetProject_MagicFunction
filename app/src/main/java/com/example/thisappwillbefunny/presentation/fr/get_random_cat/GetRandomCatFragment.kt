@@ -15,6 +15,7 @@ import coil.compose.AsyncImagePainter
 import coil.compose.SubcomposeAsyncImage
 import coil.compose.SubcomposeAsyncImageContent
 import com.example.thisappwillbefunny.R
+import com.example.thisappwillbefunny.presentation.MainActivity
 import com.example.thisappwillbefunny.presentation.fr.tip_swipe.TipSwipeRight
 import com.example.thisappwillbefunny.presentation.ui.elements.AppButton
 import com.example.thisappwillbefunny.utils.UiConst
@@ -23,9 +24,10 @@ import com.example.thisappwillbefunny.utils.swipeRightToReturn
 @Composable
 fun GetRandomCatFragment(
     viewModel: GetRandomCatViewModel,
-    navController: NavController
+    navController: NavController,
+    isShowTips: Boolean
 ) {
-    var isShowTips by remember { mutableStateOf(false) }
+
 
     ConstraintLayout(
         modifier = Modifier.fillMaxSize().swipeRightToReturn { navController.popBackStack() }
@@ -84,7 +86,7 @@ fun GetRandomCatFragment(
                     end.linkTo(parent.end)
                 }
             ) {
-                isShowTips = true
+                MainActivity().showTips()
             }
         }
 

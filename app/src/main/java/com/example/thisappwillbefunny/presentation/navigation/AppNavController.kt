@@ -22,7 +22,10 @@ import com.example.thisappwillbefunny.presentation.fr.select_internet_status.Sel
 import com.example.thisappwillbefunny.utils.isOnline
 
 @Composable
-fun AppNavController(navController: NavHostController) {
+fun AppNavController(
+    navController: NavHostController,
+    isShowTips: Boolean
+) {
     val context = LocalContext.current
     val chooseActivityViewModel: ChooseActivityViewModel = viewModel(factory = ChooseActivityViewModelFactory(navController = navController))
     val getRandomCatViewModel: GetRandomCatViewModel = viewModel(factory = GetRandomCatViewModelFactory(navController = navController))
@@ -36,21 +39,33 @@ fun AppNavController(navController: NavHostController) {
         }
         composable(GET_RANDOM_CAT_ROUTE) {
             if (isOnline(context = context)) {
-                GetRandomCatFragment(viewModel = getRandomCatViewModel, navController = navController)
+                GetRandomCatFragment(
+                    viewModel = getRandomCatViewModel,
+                    navController = navController,
+                    isShowTips = isShowTips
+                )
             } else {
                 LostInternetConnection()
             }
         }
         composable(SELECT_INTERNET_STATUS_ROUTE) {
             if (isOnline(context = context)) {
-                SelectInternetStatusFragment(viewModel = selectInternetStatusViewModel, navController = navController)
+                SelectInternetStatusFragment(
+                    viewModel = selectInternetStatusViewModel,
+                    navController = navController,
+                    isShowTips = isShowTips
+                )
             } else {
                 LostInternetConnection()
             }
         }
         composable(SELECT_ACTIVITY_ROUTE) {
             if (isOnline(context = context)) {
-                SelectActivityFragment(viewModel = selectActivityViewModel, navController = navController)
+                SelectActivityFragment(
+                    viewModel = selectActivityViewModel,
+                    navController = navController,
+                    isShowTips = isShowTips
+                )
             } else {
                 LostInternetConnection()
             }

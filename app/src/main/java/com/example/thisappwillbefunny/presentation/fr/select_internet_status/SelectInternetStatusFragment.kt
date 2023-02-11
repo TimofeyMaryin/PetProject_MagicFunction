@@ -36,6 +36,7 @@ import com.example.thisappwillbefunny.domain.use_cases.GetCatsDescInternetStatus
 import com.example.thisappwillbefunny.presentation.ui.elements.AppButton
 import com.example.thisappwillbefunny.domain.model.CatsInternetStatusModel
 import com.example.thisappwillbefunny.domain.model.TipInternetStatusModel
+import com.example.thisappwillbefunny.presentation.MainActivity
 import com.example.thisappwillbefunny.presentation.fr.tip_swipe.TipSwipeRight
 import com.example.thisappwillbefunny.presentation.ui.elements.CarouselTips
 import com.example.thisappwillbefunny.presentation.ui.elements.Container
@@ -54,9 +55,9 @@ import kotlin.random.Random
 @Composable
 fun SelectInternetStatusFragment(
     viewModel: SelectInternetStatusViewModel,
-    navController: NavController
+    navController: NavController,
+    isShowTips: Boolean
 ) {
-    var isShowTips by remember { mutableStateOf(false) }
     ConstraintLayout(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -108,7 +109,7 @@ fun SelectInternetStatusFragment(
                 bottom.linkTo(parent.bottom)
                 start.linkTo(parent.start)
             }) {
-                isShowTips = true
+                MainActivity().showTips()
             }
         }
     }
