@@ -65,6 +65,12 @@ object UiConst {
     val DEFAULT_BLUR = 40.dp
 
     object Brushes {
+
+        val MainFragmentElement = Brush.linearGradient(
+            0.0f to Color(0xFF000000),
+            1.0f to Color(0xFF4D4855)
+        )
+
         val FilterBg: Brush = Brush.linearGradient(
             0.0f to androidx.compose.ui.graphics.Color(0xFF20002c),
             1.0f to androidx.compose.ui.graphics.Color(0xFFcbb4d4)

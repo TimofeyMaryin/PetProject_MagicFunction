@@ -30,3 +30,6 @@ fun Modifier.createButton(action: () -> Unit) = this
     .clip(UiConst.Round.SMALL)
     .height(UiConst.Size.EXIT_BUTTON)
     .width(UiConst.Size.widthButton)
+
+
+fun Modifier.createHorizontalLine() = this.fillMaxWidth().height(UiConst.Size.LINE_HEIGHT).background(Color.Gray)

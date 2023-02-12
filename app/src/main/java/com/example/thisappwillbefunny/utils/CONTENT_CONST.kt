@@ -11,21 +11,25 @@ val listOfFeature = listOf(
         ContentConst.ListOfFeature.First.title,
         ContentConst.ListOfFeature.First.bg,
         ContentConst.ListOfFeature.First.textColor,
+        icon = R.drawable.cat_face,
     ),
     FeatureElementModel(
         ContentConst.ListOfFeature.Second.title,
         ContentConst.ListOfFeature.Second.bg,
         ContentConst.ListOfFeature.Second.textColor,
+        R.drawable.internet_connection,
     ),
     FeatureElementModel(
         ContentConst.ListOfFeature.Three.title,
         ContentConst.ListOfFeature.Three.bg,
         ContentConst.ListOfFeature.Three.textColor,
+        R.drawable.avatar_svgrepo
     ),
     FeatureElementModel(
         ContentConst.ListOfFeature.Three.title,
         ContentConst.ListOfFeature.Three.bg,
         ContentConst.ListOfFeature.Three.textColor,
+        R.drawable.history_svgrepo
     )
 )
 

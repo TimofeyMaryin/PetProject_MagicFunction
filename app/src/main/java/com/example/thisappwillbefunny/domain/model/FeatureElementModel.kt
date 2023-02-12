@@ -8,5 +8,6 @@ import androidx.compose.ui.graphics.Color
 data class FeatureElementModel(
     val title: String,
     val background: Brush,
-    val textColor: Color
+    val textColor: Color,
+    val icon: Int
 )
