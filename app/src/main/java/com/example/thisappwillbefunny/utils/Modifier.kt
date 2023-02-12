@@ -17,7 +17,7 @@ fun Modifier.swipeRightToReturn(action: () -> Unit) = this.pointerInput(Unit) {
         val (x, y) = dragAmount
 
         when {
-            x > 140 -> action()
+            x > 140 -> action( )
         }
     }
 }

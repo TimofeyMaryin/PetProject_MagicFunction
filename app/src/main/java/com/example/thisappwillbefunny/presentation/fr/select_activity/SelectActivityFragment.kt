@@ -88,7 +88,6 @@ fun SelectActivityFragment(
                     }
                 }
             },
-            isShowTips = isShowTips
         )
     }
 
@@ -101,9 +100,8 @@ private fun ActivityFragmentsContent(
     viewModel: SelectActivityViewModel,
     showMoreDetail: (RequestActivityModel) -> Unit,
     navController: NavController,
-    isShowTips: Boolean
 ) {
-    var _isShowTips by remember { mutableStateOf(false) }
+
     var isLoad by remember { mutableStateOf(false) }
     val configuration = LocalConfiguration.current
 
@@ -117,7 +115,13 @@ private fun ActivityFragmentsContent(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .swipeRightToReturn { navController.navigate(CHOOSE_ACTIVITY_ROUTE) },
+            .swipeRightToReturn {
+                navController.navigate(CHOOSE_ACTIVITY_ROUTE){
+                    popUpTo(SELECT_ACTIVITY_ROUTE){
+                        inclusive = true
+                    }
+                }
+            },
         contentAlignment = Alignment.Center
     ){
 
@@ -151,12 +155,6 @@ private fun ActivityFragmentsContent(
                         )
                     }
                 }
-            }
-        }
-
-        if (!_isShowTips) {
-            TipSwipeRight {
-                _isShowTips = !_isShowTips
             }
         }
 

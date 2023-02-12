@@ -38,6 +38,8 @@ import com.example.thisappwillbefunny.domain.model.CatsInternetStatusModel
 import com.example.thisappwillbefunny.domain.model.TipInternetStatusModel
 import com.example.thisappwillbefunny.presentation.MainActivity
 import com.example.thisappwillbefunny.presentation.fr.tip_swipe.TipSwipeRight
+import com.example.thisappwillbefunny.presentation.navigation.SELECT_ACTIVITY_ROUTE
+import com.example.thisappwillbefunny.presentation.navigation.SELECT_INTERNET_STATUS_ROUTE
 import com.example.thisappwillbefunny.presentation.ui.elements.CarouselTips
 import com.example.thisappwillbefunny.presentation.ui.elements.Container
 import com.example.thisappwillbefunny.presentation.ui.elements.LoadingShimmerEffect
@@ -59,7 +61,15 @@ fun SelectInternetStatusFragment(
     isShowTips: Boolean
 ) {
     ConstraintLayout(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier
+            .fillMaxSize()
+            .swipeRightToReturn {
+                navController.navigate(SELECT_ACTIVITY_ROUTE) {
+                    popUpTo(SELECT_INTERNET_STATUS_ROUTE){
+                        inclusive = true
+                    }
+                }
+            }
     ) {
         val (content, topBar, tips) = createRefs()
         var showFullSizeImage by remember { mutableStateOf(false) }
@@ -91,7 +101,6 @@ fun SelectInternetStatusFragment(
                 .constrainAs(content) {
                     top.linkTo(topBar.bottom, margin = UiConst.Padding.BETWEEN_ELEMENT)
                 }
-                .swipeRightToReturn { navController.popBackStack() }
         )
 
         if (showFullSizeImage){

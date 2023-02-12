@@ -17,6 +17,8 @@ import coil.compose.SubcomposeAsyncImageContent
 import com.example.thisappwillbefunny.R
 import com.example.thisappwillbefunny.presentation.MainActivity
 import com.example.thisappwillbefunny.presentation.fr.tip_swipe.TipSwipeRight
+import com.example.thisappwillbefunny.presentation.navigation.GET_RANDOM_CAT_ROUTE
+import com.example.thisappwillbefunny.presentation.navigation.SELECT_ACTIVITY_ROUTE
 import com.example.thisappwillbefunny.presentation.ui.elements.AppButton
 import com.example.thisappwillbefunny.utils.UiConst
 import com.example.thisappwillbefunny.utils.swipeRightToReturn
@@ -30,7 +32,15 @@ fun GetRandomCatFragment(
 
 
     ConstraintLayout(
-        modifier = Modifier.fillMaxSize().swipeRightToReturn { navController.popBackStack() }
+        modifier = Modifier
+            .fillMaxSize()
+            .swipeRightToReturn {
+                navController.navigate(SELECT_ACTIVITY_ROUTE) {
+                    popUpTo(GET_RANDOM_CAT_ROUTE){
+                        inclusive = true
+                    }
+                }
+            }
     ) {
         val (image, buttonPlace, tips) = createRefs()
 
@@ -75,23 +85,6 @@ fun GetRandomCatFragment(
             onReload = { changeImage++ },
             onDownload = { viewModel.popBackStack() }
         )
-
-        if (!isShowTips){
-            TipSwipeRight(
-                modifier = Modifier.constrainAs(tips){
-                    top.linkTo(parent.top)
-                    bottom.linkTo(parent.bottom)
-
-                    start.linkTo(parent.start)
-                    end.linkTo(parent.end)
-                }
-            ) {
-
-            }
-        }
-
-
-
 
         LaunchedEffect(
             key1 = changeImage,
