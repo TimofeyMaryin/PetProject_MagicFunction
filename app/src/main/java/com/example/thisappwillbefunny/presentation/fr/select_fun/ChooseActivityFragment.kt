@@ -16,6 +16,7 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import com.example.thisappwillbefunny.R
 import com.example.thisappwillbefunny.domain.model.FeatureElementModel
 import com.example.thisappwillbefunny.presentation.navigation.GET_RANDOM_CAT_ROUTE
+import com.example.thisappwillbefunny.presentation.navigation.LIKE_ACTIVITY_ROUTE
 import com.example.thisappwillbefunny.presentation.navigation.SELECT_ACTIVITY_ROUTE
 import com.example.thisappwillbefunny.presentation.navigation.SELECT_INTERNET_STATUS_ROUTE
 import com.example.thisappwillbefunny.presentation.ui.elements.Container
@@ -82,6 +83,7 @@ private fun ColumnFeature(
         item { Container { ColumnItem(value = listOfFeature[0], onClick = { viewModel.navigate(GET_RANDOM_CAT_ROUTE) }) } }
         item { Container { ColumnItem(value = listOfFeature[1], onClick = { viewModel.navigate(SELECT_INTERNET_STATUS_ROUTE) }) } }
         item { Container { ColumnItem(value = listOfFeature[2], onClick = { viewModel.navigate(SELECT_ACTIVITY_ROUTE) }) } }
+        item { Container { ColumnItem(value = listOfFeature[3], onClick = { viewModel.navigate(LIKE_ACTIVITY_ROUTE) }) } }
     }
 }
 

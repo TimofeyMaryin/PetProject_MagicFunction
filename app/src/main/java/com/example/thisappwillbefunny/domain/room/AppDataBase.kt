@@ -4,6 +4,8 @@ import android.app.Application
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.thisappwillbefunny.domain.room.like_activities.LikeActivitiesEntity
+import com.example.thisappwillbefunny.domain.room.like_activities.LikeActivityDao
 import com.example.thisappwillbefunny.domain.room.show_tips.ShowTips
 import com.example.thisappwillbefunny.domain.room.show_tips.ShowTipsDao
 
@@ -16,6 +18,7 @@ import com.example.thisappwillbefunny.domain.room.show_tips.ShowTipsDao
 )
 abstract class AppDataBase: RoomDatabase() {
     abstract fun tipsDao(): ShowTipsDao
+    abstract fun likeActivity(): LikeActivityDao
 
 
     companion object {
