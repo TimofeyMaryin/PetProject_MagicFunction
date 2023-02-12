@@ -1,10 +1,8 @@
-package com.example.thisappwillbefunny.domain.room.like_activities
+package com.example.thisappwillbefunny.domain.repository
 
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import com.example.thisappwillbefunny.domain.room.like_activities.LikeActivitiesEntity
 
-interface LikeActivityRepo {
+interface LikeActivityDaoRepo {
 
     fun getAllActivity(): MutableList<LikeActivitiesEntity>
     suspend fun getLikedActivities(): MutableList<LikeActivitiesEntity>

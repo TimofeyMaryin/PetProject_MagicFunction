@@ -9,9 +9,13 @@ import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.thisappwillbefunny.domain.repository.LikeActivityRepository
 import com.example.thisappwillbefunny.presentation.fr.get_random_cat.GetRandomCatFragment
 import com.example.thisappwillbefunny.presentation.fr.get_random_cat.GetRandomCatViewModel
 import com.example.thisappwillbefunny.presentation.fr.get_random_cat.GetRandomCatViewModelFactory
+import com.example.thisappwillbefunny.presentation.fr.like_activitys.LikeActivitiesFragment
+import com.example.thisappwillbefunny.presentation.fr.like_activitys.LikeActivitiesViewModel
+import com.example.thisappwillbefunny.presentation.fr.like_activitys.LikeActivityViewModelFactory
 import com.example.thisappwillbefunny.presentation.fr.lost_internet_connection.LostInternetConnection
 import com.example.thisappwillbefunny.presentation.fr.select_activity.SelectActivityFragment
 import com.example.thisappwillbefunny.presentation.fr.select_activity.SelectActivityViewModel
@@ -27,15 +31,15 @@ import com.example.thisappwillbefunny.utils.isOnline
 @Composable
 fun AppNavController(
     navController: NavHostController,
-    application: Application
+    application: Application,
+    likeActivityRepository: LikeActivityRepository
 ) {
     val context = LocalContext.current
     val chooseActivityViewModel: ChooseActivityViewModel = viewModel(factory = ChooseActivityViewModelFactory(navController = navController))
     val getRandomCatViewModel: GetRandomCatViewModel = viewModel(factory = GetRandomCatViewModelFactory(navController = navController))
     val selectInternetStatusViewModel: SelectInternetStatusViewModel = viewModel(factory = SelectInternetStatusViewModelFactory(navController = navController))
-    val selectActivityViewModel: SelectActivityViewModel = viewModel(factory = SelectActivityViewModelFactory(
-        application = application
-    ))
+    val selectActivityViewModel: SelectActivityViewModel = viewModel(factory = SelectActivityViewModelFactory(application = application, repo = likeActivityRepository))
+    val likeActivityViewModel: LikeActivitiesViewModel = viewModel(factory = LikeActivityViewModelFactory(repo = likeActivityRepository))
 
 
     NavHost(navController = navController, startDestination = CHOOSE_ACTIVITY_ROUTE ) {
@@ -52,6 +56,10 @@ fun AppNavController(
         composable(SELECT_ACTIVITY_ROUTE) {
             checkIsOnline(isOnlineUser = { SelectActivityFragment(viewModel = selectActivityViewModel, navController = navController) }, context = context)
 
+        }
+
+        composable(LIKE_ACTIVITY_ROUTE) {
+            checkIsOnline(isOnlineUser = { LikeActivitiesFragment(navController = navController, viewModel = likeActivityViewModel) }, context = context)
         }
 
     }

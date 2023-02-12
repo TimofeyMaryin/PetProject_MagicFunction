@@ -7,12 +7,12 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.example.thisappwillbefunny.R
 import com.example.thisappwillbefunny.R.*
-import com.example.thisappwillbefunny.domain.internet.user_activity.pojo.ActivityPOJO
 import com.example.thisappwillbefunny.domain.model.FilterElementModel
 import com.example.thisappwillbefunny.domain.model.RequestActivityModel
 import com.example.thisappwillbefunny.domain.room.AppDataBase
 import com.example.thisappwillbefunny.domain.room.like_activities.LikeActivitiesEntity
-import com.example.thisappwillbefunny.domain.room.like_activities.LikeActivityRepo
+import com.example.thisappwillbefunny.domain.repository.LikeActivityDaoRepo
+import com.example.thisappwillbefunny.domain.repository.LikeActivityRepository
 import com.example.thisappwillbefunny.domain.state.ActivityLevels
 import com.example.thisappwillbefunny.domain.state.FilterActivityState
 import com.example.thisappwillbefunny.domain.use_cases.GetCurrentActivity
@@ -21,12 +21,15 @@ import com.example.thisappwillbefunny.utils.UiConst
 import com.example.thisappwillbefunny.utils.emptyRequestActivityModel
 import kotlinx.coroutines.coroutineScope
 
-class SelectActivityViewModel(application: Application) : ViewModel(), LikeActivityRepo {
-    private val likeActivityDao = AppDataBase.getInstance(application = application).likeActivity()
-    override fun getAllActivity(): MutableList<LikeActivitiesEntity> = likeActivityDao.getAllActivity()
-    override suspend fun getLikedActivities(): MutableList<LikeActivitiesEntity>  = likeActivityDao.getLikedActivities()
-    override fun likeActivity(activity: LikeActivitiesEntity) = likeActivityDao.likeActivity(activity = activity)
-    override suspend fun deleteActivity(activity: LikeActivitiesEntity) = likeActivityDao.deleteActivity(activity = activity)
+class SelectActivityViewModel(
+    application: Application,
+    private val repo: LikeActivityRepository
+) : ViewModel(), LikeActivityDaoRepo {
+
+    override fun getAllActivity(): MutableList<LikeActivitiesEntity> = repo.getAllActivity()
+    override suspend fun getLikedActivities(): MutableList<LikeActivitiesEntity> = repo.getLikedActivities()
+    override fun likeActivity(activity: LikeActivitiesEntity) =  repo.likeActivity(activity = activity)
+    override suspend fun deleteActivity(activity: LikeActivitiesEntity) = repo.deleteActivity(activity = activity)
 
 
 

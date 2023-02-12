@@ -252,16 +252,16 @@ private fun LikeThisActivity(
             .fillMaxWidth()
             .clickable {
                 value.pricing.isLike.value = !value.pricing.isLike.value
-//                viewModel.likeActivity(
-//                    activity = LikeActivitiesEntity(
-//                        accessibility = value.activityPOJO.accessibility,
-//                        activity = value.activityPOJO.activity,
-//                        participants = value.activityPOJO.participants,
-//                        price = value.activityPOJO.price,
-//                        type = value.activityPOJO.type,
-//                        like = value.pricing.isLike.value
-//                    )
-//                )
+                viewModel.likeActivity(
+                    activity = LikeActivitiesEntity(
+                        accessibility = value.activityPOJO.accessibility,
+                        activity = value.activityPOJO.activity,
+                        participants = value.activityPOJO.participants,
+                        price = value.activityPOJO.price,
+                        type = value.activityPOJO.type,
+                        like = value.pricing.isLike.value
+                    )
+                )
             }
             .defaultMinSize(minHeight = UiConst.Size.HEIGHT_BOTTOM_SHEET_EL),
         horizontalAlignment = Alignment.CenterHorizontally
