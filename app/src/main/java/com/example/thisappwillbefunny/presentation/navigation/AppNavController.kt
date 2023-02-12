@@ -1,5 +1,6 @@
 package com.example.thisappwillbefunny.presentation.navigation
 
+import android.content.Context
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -23,8 +24,7 @@ import com.example.thisappwillbefunny.utils.isOnline
 
 @Composable
 fun AppNavController(
-    navController: NavHostController,
-    isShowTips: Boolean
+    navController: NavHostController
 ) {
     val context = LocalContext.current
     val chooseActivityViewModel: ChooseActivityViewModel = viewModel(factory = ChooseActivityViewModelFactory(navController = navController))
@@ -38,38 +38,34 @@ fun AppNavController(
             ChooseActivityFragment(viewModel = chooseActivityViewModel)
         }
         composable(GET_RANDOM_CAT_ROUTE) {
-            if (isOnline(context = context)) {
-                GetRandomCatFragment(
-                    viewModel = getRandomCatViewModel,
-                    navController = navController,
-                    isShowTips = isShowTips
-                )
-            } else {
-                LostInternetConnection()
-            }
+            checkIsOnline(isOnlineUser = { GetRandomCatFragment(viewModel = getRandomCatViewModel, navController = navController) }, context = context)
         }
         composable(SELECT_INTERNET_STATUS_ROUTE) {
-            if (isOnline(context = context)) {
-                SelectInternetStatusFragment(
-                    viewModel = selectInternetStatusViewModel,
-                    navController = navController,
-                    isShowTips = isShowTips
-                )
-            } else {
-                LostInternetConnection()
-            }
+            checkIsOnline(isOnlineUser = { SelectInternetStatusFragment(viewModel = selectInternetStatusViewModel, navController = navController) }, context = context)
+
         }
         composable(SELECT_ACTIVITY_ROUTE) {
-            if (isOnline(context = context)) {
-                SelectActivityFragment(
-                    viewModel = selectActivityViewModel,
-                    navController = navController,
-                    isShowTips = isShowTips
-                )
-            } else {
-                LostInternetConnection()
-            }
+            checkIsOnline(isOnlineUser = { SelectActivityFragment(viewModel = selectActivityViewModel, navController = navController) }, context = context)
+
         }
 
     }
 }
+
+@Composable private fun checkIsOnline(isOnlineUser: @Composable () -> Unit, context: Context){
+    if (isOnline(context = context)) {
+        isOnlineUser()
+    } else {
+        LostInternetConnection()
+    }
+}
+
+/*
+if (isOnline(context = context)) {
+    SelectActivityFragment(
+        viewModel = selectActivityViewModel,
+        navController = navController
+    )
+} else {
+    LostInternetConnection()
+}*/

@@ -38,6 +38,7 @@ import com.example.thisappwillbefunny.domain.model.CatsInternetStatusModel
 import com.example.thisappwillbefunny.domain.model.TipInternetStatusModel
 import com.example.thisappwillbefunny.presentation.MainActivity
 import com.example.thisappwillbefunny.presentation.fr.tip_swipe.TipSwipeRight
+import com.example.thisappwillbefunny.presentation.navigation.CHOOSE_ACTIVITY_ROUTE
 import com.example.thisappwillbefunny.presentation.navigation.SELECT_ACTIVITY_ROUTE
 import com.example.thisappwillbefunny.presentation.navigation.SELECT_INTERNET_STATUS_ROUTE
 import com.example.thisappwillbefunny.presentation.ui.elements.CarouselTips
@@ -57,14 +58,13 @@ import kotlin.random.Random
 @Composable
 fun SelectInternetStatusFragment(
     viewModel: SelectInternetStatusViewModel,
-    navController: NavController,
-    isShowTips: Boolean
+    navController: NavController
 ) {
     ConstraintLayout(
         modifier = Modifier
             .fillMaxSize()
             .swipeRightToReturn {
-                navController.navigate(SELECT_ACTIVITY_ROUTE) {
+                navController.navigate(CHOOSE_ACTIVITY_ROUTE){
                     popUpTo(SELECT_INTERNET_STATUS_ROUTE){
                         inclusive = true
                     }
@@ -111,15 +111,5 @@ fun SelectInternetStatusFragment(
             )
         }
 
-        if(!isShowTips){
-            TipSwipeRight(modifier = Modifier.constrainAs(tips) {
-                top.linkTo(parent.top)
-                end.linkTo(parent.end)
-                bottom.linkTo(parent.bottom)
-                start.linkTo(parent.start)
-            }) {
-
-            }
-        }
     }
 }

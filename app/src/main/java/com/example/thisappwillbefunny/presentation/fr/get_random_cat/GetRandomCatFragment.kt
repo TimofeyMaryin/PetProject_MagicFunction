@@ -1,5 +1,6 @@
 package com.example.thisappwillbefunny.presentation.fr.get_random_cat
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.CircularProgressIndicator
@@ -9,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.blur
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
 import coil.compose.AsyncImagePainter
@@ -17,6 +19,7 @@ import coil.compose.SubcomposeAsyncImageContent
 import com.example.thisappwillbefunny.R
 import com.example.thisappwillbefunny.presentation.MainActivity
 import com.example.thisappwillbefunny.presentation.fr.tip_swipe.TipSwipeRight
+import com.example.thisappwillbefunny.presentation.navigation.CHOOSE_ACTIVITY_ROUTE
 import com.example.thisappwillbefunny.presentation.navigation.GET_RANDOM_CAT_ROUTE
 import com.example.thisappwillbefunny.presentation.navigation.SELECT_ACTIVITY_ROUTE
 import com.example.thisappwillbefunny.presentation.ui.elements.AppButton
@@ -26,17 +29,17 @@ import com.example.thisappwillbefunny.utils.swipeRightToReturn
 @Composable
 fun GetRandomCatFragment(
     viewModel: GetRandomCatViewModel,
-    navController: NavController,
-    isShowTips: Boolean
+    navController: NavController
 ) {
 
 
+    val context = LocalContext.current
     ConstraintLayout(
         modifier = Modifier
             .fillMaxSize()
             .swipeRightToReturn {
-                navController.navigate(SELECT_ACTIVITY_ROUTE) {
-                    popUpTo(GET_RANDOM_CAT_ROUTE){
+                navController.navigate(CHOOSE_ACTIVITY_ROUTE) {
+                    popUpTo(GET_RANDOM_CAT_ROUTE) {
                         inclusive = true
                     }
                 }
@@ -83,7 +86,11 @@ fun GetRandomCatFragment(
                 bottom.linkTo(parent.bottom)
             },
             onReload = { changeImage++ },
-            onDownload = { viewModel.popBackStack() }
+            onDownload = {
+                if (result != "") {
+                    Log.e("GetRandomCatFragment", "result: $result", )
+                    viewModel.downloadImage(url = result, context = context) }
+                }
         )
 
         LaunchedEffect(

@@ -59,8 +59,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun SelectActivityFragment(
     viewModel: SelectActivityViewModel,
-    navController: NavController,
-    isShowTips: Boolean,
+    navController: NavController
 ) {
     val bottomSheetScaffoldState = rememberBottomSheetScaffoldState(bottomSheetState = BottomSheetState(BottomSheetValue.Collapsed))
     val coroutineScope = rememberCoroutineScope()
