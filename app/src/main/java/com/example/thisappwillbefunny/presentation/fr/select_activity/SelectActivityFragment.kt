@@ -36,6 +36,7 @@ import androidx.navigation.NavController
 import com.example.thisappwillbefunny.R
 import com.example.thisappwillbefunny.domain.model.ActivityItemDescModel
 import com.example.thisappwillbefunny.domain.model.RequestActivityModel
+import com.example.thisappwillbefunny.domain.room.like_activities.LikeActivitiesEntity
 import com.example.thisappwillbefunny.presentation.MainActivity
 import com.example.thisappwillbefunny.presentation.fr.tip_swipe.TipSwipeRight
 import com.example.thisappwillbefunny.presentation.navigation.CHOOSE_ACTIVITY_ROUTE
@@ -68,7 +69,7 @@ fun SelectActivityFragment(
 
     BottomSheetScaffold(
         scaffoldState = bottomSheetScaffoldState,
-        sheetContent = { BottomSheetContainer(content = bottomSheetContent) },
+        sheetContent = { BottomSheetContainer(content = bottomSheetContent, viewModel = viewModel) },
         sheetPeekHeight = UiConst.Padding.ZERO
     ) {
 
@@ -171,7 +172,7 @@ private fun ActivityFragmentsContent(
 
 
 @Composable
-private fun BottomSheetContainer(content: RequestActivityModel) {
+private fun BottomSheetContainer(content: RequestActivityModel, viewModel: SelectActivityViewModel) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -189,12 +190,15 @@ private fun BottomSheetContainer(content: RequestActivityModel) {
                 .padding(bottom = UiConst.Padding.SMALL)
         )
         
-        BottomSheetContent(value = content)
+        BottomSheetContent(value = content, viewModel = viewModel)
     }
 }
 
 @Composable
-private fun BottomSheetContent(value: RequestActivityModel) {
+private fun BottomSheetContent(
+    value: RequestActivityModel,
+    viewModel: SelectActivityViewModel
+) {
     ConstraintLayout(
         modifier = Modifier.fillMaxWidth()
     ) {
@@ -227,20 +231,38 @@ private fun BottomSheetContent(value: RequestActivityModel) {
             BottomSheetContentItem(nameItem = value.accessibleModel.nameTypeActivity, desc = stringResource(id = value.accessibleModel.desc) )
             BottomSheetContentItem(nameItem = value.participants.nameTypeActivity, desc = "${stringResource(id = value.participants.desc)}(${value.activityPOJO.participants}) ")
             BottomSheetContentItem(nameItem = value.pricing.nameTypeActivity, desc = stringResource(id = value.pricing.desc))
-            LikeThisActivity(value = value.pricing)
+            LikeThisActivity(
+                value = value,
+                viewModel = viewModel
+            )
         }
 
     }
 }
 
 @Composable
-private fun LikeThisActivity(value: ActivityItemDescModel) {
+private fun LikeThisActivity(
+    value: RequestActivityModel,
+    viewModel: SelectActivityViewModel
+) {
 
-    val tintIcon by animateColorAsState(targetValue = if(value.isLike.value) Color.Red else Color.Black)
+    val tintIcon by animateColorAsState(targetValue = if(value.pricing.isLike.value) Color.Red else Color.Black)
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable { value.isLike.value = !value.isLike.value }
+            .clickable {
+                value.pricing.isLike.value = !value.pricing.isLike.value
+//                viewModel.likeActivity(
+//                    activity = LikeActivitiesEntity(
+//                        accessibility = value.activityPOJO.accessibility,
+//                        activity = value.activityPOJO.activity,
+//                        participants = value.activityPOJO.participants,
+//                        price = value.activityPOJO.price,
+//                        type = value.activityPOJO.type,
+//                        like = value.pricing.isLike.value
+//                    )
+//                )
+            }
             .defaultMinSize(minHeight = UiConst.Size.HEIGHT_BOTTOM_SHEET_EL),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -258,7 +280,7 @@ private fun LikeThisActivity(value: ActivityItemDescModel) {
                 modifier = Modifier.size(UiConst.Size.SmallIconBgSize)
             )
             AnimatedVisibility(
-                visible = value.isLike.value,
+                visible = value.pricing.isLike.value,
                 enter = slideInVertically(tween(300)) + fadeIn(tween(300)),
                 exit = slideOutVertically(tween(300)) + fadeOut(tween(300))
             ) {

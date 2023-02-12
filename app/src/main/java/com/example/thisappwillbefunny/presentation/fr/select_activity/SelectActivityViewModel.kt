@@ -1,5 +1,6 @@
 package com.example.thisappwillbefunny.presentation.fr.select_activity
 
+import android.app.Application
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -9,6 +10,9 @@ import com.example.thisappwillbefunny.R.*
 import com.example.thisappwillbefunny.domain.internet.user_activity.pojo.ActivityPOJO
 import com.example.thisappwillbefunny.domain.model.FilterElementModel
 import com.example.thisappwillbefunny.domain.model.RequestActivityModel
+import com.example.thisappwillbefunny.domain.room.AppDataBase
+import com.example.thisappwillbefunny.domain.room.like_activities.LikeActivitiesEntity
+import com.example.thisappwillbefunny.domain.room.like_activities.LikeActivityRepo
 import com.example.thisappwillbefunny.domain.state.ActivityLevels
 import com.example.thisappwillbefunny.domain.state.FilterActivityState
 import com.example.thisappwillbefunny.domain.use_cases.GetCurrentActivity
@@ -17,8 +21,12 @@ import com.example.thisappwillbefunny.utils.UiConst
 import com.example.thisappwillbefunny.utils.emptyRequestActivityModel
 import kotlinx.coroutines.coroutineScope
 
-class SelectActivityViewModel : ViewModel() {
-
+class SelectActivityViewModel(application: Application) : ViewModel(), LikeActivityRepo {
+    private val likeActivityDao = AppDataBase.getInstance(application = application).likeActivity()
+    override fun getAllActivity(): MutableList<LikeActivitiesEntity> = likeActivityDao.getAllActivity()
+    override suspend fun getLikedActivities(): MutableList<LikeActivitiesEntity>  = likeActivityDao.getLikedActivities()
+    override fun likeActivity(activity: LikeActivitiesEntity) = likeActivityDao.likeActivity(activity = activity)
+    override suspend fun deleteActivity(activity: LikeActivitiesEntity) = likeActivityDao.deleteActivity(activity = activity)
 
 
 
@@ -159,4 +167,6 @@ class SelectActivityViewModel : ViewModel() {
             else -> filterElement
         }
     }
+
+
 }

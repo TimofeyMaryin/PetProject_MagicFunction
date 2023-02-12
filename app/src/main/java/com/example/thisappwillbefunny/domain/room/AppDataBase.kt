@@ -12,9 +12,10 @@ import com.example.thisappwillbefunny.domain.room.show_tips.ShowTipsDao
 
 @Database(
     entities = [
-        ShowTips::class
+        ShowTips::class,
+        LikeActivitiesEntity::class
     ],
-    version = 1
+    version = 4
 )
 abstract class AppDataBase: RoomDatabase() {
     abstract fun tipsDao(): ShowTipsDao

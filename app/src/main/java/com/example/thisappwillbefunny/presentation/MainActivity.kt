@@ -26,7 +26,7 @@ class MainActivity : ComponentActivity() {
                     val rememberNavController = rememberNavController()
 
 
-                    AppNavController(navController = rememberNavController)
+                    AppNavController(navController = rememberNavController, application)
                 }
             }
         }

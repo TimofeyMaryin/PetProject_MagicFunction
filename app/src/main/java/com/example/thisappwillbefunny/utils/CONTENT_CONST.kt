@@ -21,6 +21,11 @@ val listOfFeature = listOf(
         ContentConst.ListOfFeature.Three.title,
         ContentConst.ListOfFeature.Three.bg,
         ContentConst.ListOfFeature.Three.textColor,
+    ),
+    FeatureElementModel(
+        ContentConst.ListOfFeature.Three.title,
+        ContentConst.ListOfFeature.Three.bg,
+        ContentConst.ListOfFeature.Three.textColor,
     )
 )
 
