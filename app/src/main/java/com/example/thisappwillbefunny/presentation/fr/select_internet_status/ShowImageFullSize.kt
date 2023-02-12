@@ -12,6 +12,7 @@ import androidx.compose.ui.draw.blur
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.constraintlayout.compose.ConstraintLayout
 import coil.compose.AsyncImage
 import com.example.thisappwillbefunny.presentation.fr.tip_swipe.TipSwipeVertical
@@ -26,6 +27,7 @@ fun ShowImageFullSize(
     onBack: () -> Unit,
 ) {
     var isShowTips by remember { mutableStateOf(false) }
+    val context = LocalContext.current
 
 
     var visibleAnimation by remember { mutableStateOf(false) }
@@ -100,7 +102,7 @@ fun ShowImageFullSize(
             }
         ) {
             BottomButtonPlace(
-                onDownload = { viewModel.downloadImage() },
+                onDownload = { viewModel.downloadImage(url = url, context = context) },
             )
 
         }
