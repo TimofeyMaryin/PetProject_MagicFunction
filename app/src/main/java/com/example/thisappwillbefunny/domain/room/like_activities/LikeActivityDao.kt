@@ -18,7 +18,7 @@ interface LikeActivityDao {
     fun likeActivity(activity: LikeActivitiesEntity)
 
     @Delete
-    suspend fun deleteActivity(activity: LikeActivitiesEntity)
+    fun deleteActivity(activity: LikeActivitiesEntity)
 
 
 }

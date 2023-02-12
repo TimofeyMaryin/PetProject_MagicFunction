@@ -13,5 +13,5 @@ class LikeActivityRepository(application: Application):  LikeActivityDaoRepo {
 
     override fun likeActivity(activity: LikeActivitiesEntity) = dao.likeActivity(activity = activity)
 
-    override suspend fun deleteActivity(activity: LikeActivitiesEntity) = dao.deleteActivity(activity = activity)
+    override fun deleteActivity(activity: LikeActivitiesEntity) = dao.deleteActivity(activity = activity)
 }

@@ -5,8 +5,6 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
@@ -52,6 +50,9 @@ object UiConst {
         val SmallIcon = 37.dp
         val SmallIconBgSize = 45.dp
         val SmallIconBorder = 55.dp
+
+        val heightActivityItem = 100.dp
+        val widthButton = 80.dp
     }
 
     object Color {

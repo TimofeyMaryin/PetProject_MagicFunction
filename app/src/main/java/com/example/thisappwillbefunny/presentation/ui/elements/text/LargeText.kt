@@ -17,7 +17,7 @@ fun LargeText(
     modifier: Modifier = Modifier,
     color: Color = MaterialTheme.colors.primary,
     textAlign: TextAlign = TextAlign.Start,
-    fontFamily: FontFamily = Sassy,
+    fontFamily: FontFamily? = Sassy,
     fontWeight: FontWeight = FontWeight.Bold,
     fontStyle: FontStyle? = null
 ) =

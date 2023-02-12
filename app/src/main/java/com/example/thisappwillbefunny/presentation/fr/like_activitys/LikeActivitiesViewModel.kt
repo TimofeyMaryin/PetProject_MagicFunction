@@ -6,13 +6,16 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.example.thisappwillbefunny.domain.repository.LikeActivityRepository
 import com.example.thisappwillbefunny.domain.room.like_activities.LikeActivitiesEntity
+import com.example.thisappwillbefunny.presentation.repository.ActivityInfoRepoImpl
 import kotlinx.coroutines.coroutineScope
 
 class LikeActivitiesViewModel(
-    private val repo: LikeActivityRepository
+    val repo: LikeActivityRepository
 ): ViewModel() {
 
-    suspend fun getCountLikedActivity(): Int {
+    val activityInfoRepo = ActivityInfoRepoImpl()
+
+    fun getCountLikedActivity(): Int {
 
         return  repo.getLikedActivities().size
     }

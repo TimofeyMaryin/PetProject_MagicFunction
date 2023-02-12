@@ -29,7 +29,7 @@ class SelectActivityViewModel(
     override fun getAllActivity(): MutableList<LikeActivitiesEntity> = repo.getAllActivity()
     override fun getLikedActivities(): MutableList<LikeActivitiesEntity> = repo.getLikedActivities()
     override fun likeActivity(activity: LikeActivitiesEntity) =  repo.likeActivity(activity = activity)
-    override suspend fun deleteActivity(activity: LikeActivitiesEntity) = repo.deleteActivity(activity = activity)
+    override fun deleteActivity(activity: LikeActivitiesEntity) = repo.deleteActivity(activity = activity)
 
 
 

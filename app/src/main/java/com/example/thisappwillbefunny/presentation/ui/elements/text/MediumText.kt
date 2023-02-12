@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import com.example.thisappwillbefunny.presentation.ui.font.Raleway
 import com.example.thisappwillbefunny.presentation.ui.font.Sassy
@@ -18,7 +19,8 @@ fun MediumText(
     modifier: Modifier = Modifier,
     fontFamily: androidx.compose.ui.text.font.FontFamily? = Raleway,
     fontWeight: FontWeight = FontWeight.Normal,
-    maxLines: Int = Int.MAX_VALUE
+    maxLines: Int = Int.MAX_VALUE,
+    textAlign: TextAlign = TextAlign.Start
 ) =
     Text(
         text = value,
@@ -28,5 +30,6 @@ fun MediumText(
         modifier = modifier,
         fontWeight = fontWeight,
         maxLines = maxLines,
-        overflow = TextOverflow.Ellipsis
+        overflow = TextOverflow.Ellipsis,
+        textAlign = textAlign
     )

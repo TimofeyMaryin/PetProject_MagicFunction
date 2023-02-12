@@ -7,5 +7,5 @@ interface LikeActivityDaoRepo {
     fun getAllActivity(): MutableList<LikeActivitiesEntity>
     fun getLikedActivities(): MutableList<LikeActivitiesEntity>
     fun likeActivity(activity: LikeActivitiesEntity)
-    suspend fun deleteActivity(activity: LikeActivitiesEntity)
+    fun deleteActivity(activity: LikeActivitiesEntity)
 }

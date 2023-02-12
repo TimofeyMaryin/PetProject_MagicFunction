@@ -1,4 +1,4 @@
-package com.example.thisappwillbefunny.presentation.fr.select_activity
+package com.example.thisappwillbefunny.presentation.ui.elements
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -12,6 +12,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.example.thisappwillbefunny.domain.model.ActivityItemDescModel
+import com.example.thisappwillbefunny.presentation.fr.select_activity.SelectActivityViewModel
 import com.example.thisappwillbefunny.presentation.ui.elements.text.MediumText
 import com.example.thisappwillbefunny.presentation.ui.font.Raleway
 import com.example.thisappwillbefunny.utils.UiConst
@@ -80,6 +81,8 @@ fun ActivityItem(
 
     }
 }
+
+
 
 
 @Composable
