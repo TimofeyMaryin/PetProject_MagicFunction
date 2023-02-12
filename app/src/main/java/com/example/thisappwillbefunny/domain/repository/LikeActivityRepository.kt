@@ -9,7 +9,7 @@ class LikeActivityRepository(application: Application):  LikeActivityDaoRepo {
     private val dao = AppDataBase.getInstance(application = application).likeActivity()
     override fun getAllActivity(): MutableList<LikeActivitiesEntity>  = dao.getAllActivity()
 
-    override suspend fun getLikedActivities(): MutableList<LikeActivitiesEntity> = dao.getLikedActivities()
+    override fun getLikedActivities(): MutableList<LikeActivitiesEntity> = dao.getLikedActivities()
 
     override fun likeActivity(activity: LikeActivitiesEntity) = dao.likeActivity(activity = activity)
 

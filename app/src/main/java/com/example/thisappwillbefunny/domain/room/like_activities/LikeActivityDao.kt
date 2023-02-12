@@ -12,7 +12,7 @@ interface LikeActivityDao {
     fun getAllActivity(): MutableList<LikeActivitiesEntity>
 
     @Query("SELECT * FROM activity WHERE is_like = true")
-    suspend fun getLikedActivities(): MutableList<LikeActivitiesEntity>
+    fun getLikedActivities(): MutableList<LikeActivitiesEntity>
 
     @Insert
     fun likeActivity(activity: LikeActivitiesEntity)

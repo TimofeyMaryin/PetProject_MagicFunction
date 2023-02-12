@@ -5,13 +5,21 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.example.thisappwillbefunny.domain.repository.LikeActivityRepository
+import com.example.thisappwillbefunny.domain.room.like_activities.LikeActivitiesEntity
+import kotlinx.coroutines.coroutineScope
 
 class LikeActivitiesViewModel(
     private val repo: LikeActivityRepository
 ): ViewModel() {
-    var count by mutableStateOf(-1)
-    suspend fun getCountLikedActivity() {
-        count = repo.getLikedActivities().size
+
+    suspend fun getCountLikedActivity(): Int {
+
+        return  repo.getLikedActivities().size
     }
+
+    fun getElement(index: Int): LikeActivitiesEntity {
+        return repo.getLikedActivities()[index]
+    }
+
 
 }

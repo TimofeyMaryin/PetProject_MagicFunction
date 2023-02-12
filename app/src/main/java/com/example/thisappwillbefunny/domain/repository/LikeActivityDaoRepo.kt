@@ -5,7 +5,7 @@ import com.example.thisappwillbefunny.domain.room.like_activities.LikeActivities
 interface LikeActivityDaoRepo {
 
     fun getAllActivity(): MutableList<LikeActivitiesEntity>
-    suspend fun getLikedActivities(): MutableList<LikeActivitiesEntity>
+    fun getLikedActivities(): MutableList<LikeActivitiesEntity>
     fun likeActivity(activity: LikeActivitiesEntity)
     suspend fun deleteActivity(activity: LikeActivitiesEntity)
 }
