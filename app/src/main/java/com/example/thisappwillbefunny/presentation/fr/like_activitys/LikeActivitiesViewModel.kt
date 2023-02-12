@@ -20,9 +20,9 @@ class LikeActivitiesViewModel(
         return  repo.getLikedActivities().size
     }
 
-    fun getElement(index: Int): LikeActivitiesEntity {
-        return repo.getLikedActivities()[index]
-    }
+//    fun getElement(index: Int): LikeActivitiesEntity {
+//        return repo.getLikedActivities()[index]
+//    }
 
 
 }

@@ -15,7 +15,7 @@ import com.example.thisappwillbefunny.domain.room.show_tips.ShowTipsDao
         ShowTips::class,
         LikeActivitiesEntity::class
     ],
-    version = 4
+    version = 5
 )
 abstract class AppDataBase: RoomDatabase() {
     abstract fun tipsDao(): ShowTipsDao

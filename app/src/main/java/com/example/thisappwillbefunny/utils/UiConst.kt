@@ -53,6 +53,8 @@ object UiConst {
 
         val heightActivityItem = 100.dp
         val widthButton = 80.dp
+
+        val heightLottieAnimTip = 200.dp
     }
 
     object Color {

@@ -36,8 +36,18 @@ import com.example.thisappwillbefunny.utils.swipeRightToReturn
     navController: NavController,
     viewModel: LikeActivitiesViewModel
 ) {
-    var count by remember { mutableStateOf(0) }
+    if (viewModel.repo.getLikedActivities().size != 0) {
+        LoadContent(navController = navController, viewModel = viewModel)
+    } else {
+        EmptyListFragment(navController = navController)
+    }
 
+}
+
+@Composable private fun LoadContent(
+    navController: NavController,
+    viewModel: LikeActivitiesViewModel
+) {
     LazyColumn(
         modifier = Modifier
             .fillMaxWidth()
@@ -52,34 +62,28 @@ import com.example.thisappwillbefunny.utils.swipeRightToReturn
         item {
             // TODO(This will be header)
         }
-        items(count) {
+        items(viewModel.repo.getLikedActivities().size) {
             var isShow by remember { mutableStateOf(false) }
 
             AnimatedVisibility(
                 visible = isShow,
                 enter = slideInVertically(tween(1000)) + fadeIn(tween(1000))
             ) {
-                LikedElement(element = viewModel.getElement(it), index = it, viewModel = viewModel)
+                LikedElement(
+                    element = viewModel.repo.getLikedActivities()[it],
+                    viewModel = viewModel
+                )
             }
 
             isShow = true
         }
     }
-
-
-
-
-    LaunchedEffect(key1 = viewModel.getCountLikedActivity(), block = {
-        count = viewModel.getCountLikedActivity()
-    })
-
 }
 
 
 @Composable private fun LikedElement(
     element: LikeActivitiesEntity,
-    viewModel: LikeActivitiesViewModel,
-    index: Int
+    viewModel: LikeActivitiesViewModel
 ) {
     Box(
         modifier = Modifier
@@ -89,8 +93,7 @@ import com.example.thisappwillbefunny.utils.swipeRightToReturn
     ){
         LikedContent(
             element,
-            viewModel = viewModel,
-            index = index
+            viewModel = viewModel
         )
     }
 }
@@ -99,7 +102,6 @@ import com.example.thisappwillbefunny.utils.swipeRightToReturn
 @Composable private fun LikedContent(
     element: LikeActivitiesEntity,
     viewModel: LikeActivitiesViewModel,
-    index: Int
 ) {
     var openDialog by remember { mutableStateOf(false) }
     val currentElement by remember { mutableStateOf(viewModel.activityInfoRepo) }
@@ -128,18 +130,18 @@ import com.example.thisappwillbefunny.utils.swipeRightToReturn
                 horizontalArrangement = Arrangement.Center
             ) {
                 LikedContentIcon(
-                    icon = currentElement.getParticipants(viewModel.getElement(index).participants).icon,
-                    bg = currentElement.getParticipants(viewModel.getElement(index).participants).bg
+                    icon = currentElement.getParticipants(element.participants).icon,
+                    bg = currentElement.getParticipants(element.participants).bg
                 )
 
                 LikedContentIcon(
-                    icon = currentElement.getAccessibility(viewModel.getElement(index).accessibility.toFloat()).icon,
-                    bg = currentElement.getAccessibility(viewModel.getElement(index).accessibility.toFloat()).bg
+                    icon = currentElement.getAccessibility(element.accessibility.toFloat()).icon,
+                    bg = currentElement.getAccessibility(element.accessibility.toFloat()).bg
                 )
 
                 LikedContentIcon(
-                    icon = currentElement.getPrice(viewModel.getElement(index).price.toFloat()).icon,
-                    bg = currentElement.getPrice(viewModel.getElement(index).price.toFloat()).bg
+                    icon = currentElement.getPrice(element.price.toFloat()).icon,
+                    bg = currentElement.getPrice(element.price.toFloat()).bg
                 )
             }
         }
@@ -183,7 +185,7 @@ import com.example.thisappwillbefunny.utils.swipeRightToReturn
                 },
                 buttons = {
                     AlertButtonPlace(
-                        onDelete = { viewModel.repo.deleteActivity(element) },
+                        onDelete = { viewModel.repo.deleteActivity(element); openDialog = false},
                         onCancel = { openDialog = false }
                     )
                 },
@@ -222,7 +224,9 @@ import com.example.thisappwillbefunny.utils.swipeRightToReturn
 
 @Composable private fun AlertButtonPlace(onDelete: () -> Unit, onCancel: () -> Unit) {
     Row(
-        modifier = Modifier.fillMaxWidth().padding(UiConst.Padding.MEDIUM),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(UiConst.Padding.MEDIUM),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.End
     ) {
