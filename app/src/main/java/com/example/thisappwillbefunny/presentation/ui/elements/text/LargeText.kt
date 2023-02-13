@@ -10,6 +10,7 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import com.example.thisappwillbefunny.presentation.ui.font.Sassy
+import java.time.format.TextStyle
 
 @Composable
 fun LargeText(
@@ -19,12 +20,13 @@ fun LargeText(
     textAlign: TextAlign = TextAlign.Start,
     fontFamily: FontFamily? = Sassy,
     fontWeight: FontWeight = FontWeight.Bold,
-    fontStyle: FontStyle? = null
+    fontStyle: FontStyle? = null,
+    style: androidx.compose.ui.text.TextStyle = MaterialTheme.typography.h6
 ) =
     Text(
         text = value,
         modifier = modifier,
-        style = MaterialTheme.typography.h6,
+        style = style,
         fontFamily = fontFamily,
         color = color,
         textAlign = textAlign,

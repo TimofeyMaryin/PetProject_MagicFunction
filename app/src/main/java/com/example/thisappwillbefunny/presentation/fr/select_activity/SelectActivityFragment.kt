@@ -119,23 +119,24 @@ private fun ActivityFragmentsContent(
         contentAlignment = Alignment.Center
     ){
 
-        LazyColumn(
-            modifier = Modifier.fillMaxSize()
-        ) {
-            item {
-                LottieAnimation(
-                    composition = animationSpec,
-                    progress = progress,
-                    alignment = Alignment.Center,
-                    contentScale = ContentScale.FillWidth,
-                    modifier = Modifier
-                        .background(Color.Cyan)
-                        .height(configuration.screenWidthDp.dp)
-                )
-            }
-            items(viewModel.defaultCountRequest) {element ->
-                Log.e("ActivityFragmentsContent", viewModel.defaultCountRequest.toString(), )
-                if (isLoad) {
+        if (isLoad) {
+            LazyColumn(
+                modifier = Modifier.fillMaxSize()
+            ) {
+                item {
+                    LottieAnimation(
+                        composition = animationSpec,
+                        progress = progress,
+                        alignment = Alignment.Center,
+                        contentScale = ContentScale.FillWidth,
+                        modifier = Modifier
+                            .background(Color.Cyan)
+                            .height(configuration.screenWidthDp.dp)
+                    )
+                }
+                items(viewModel.defaultCountRequest) {element ->
+                    Log.e("ActivityFragmentsContent", viewModel.defaultCountRequest.toString(), )
+
                     Box(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -149,10 +150,13 @@ private fun ActivityFragmentsContent(
                             index = element
                         )
                     }
-
                 }
             }
+
+        } else {
+            LoadingFragment()
         }
+
 
     }
 

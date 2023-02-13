@@ -66,6 +66,11 @@ object UiConst {
 
     object Brushes {
 
+        val background = Brush.horizontalGradient(
+            0.0f to Color(0xFF28313B),
+            1.0f to Color(0xFF485461)
+        )
+
         val MainFragmentElement = Brush.linearGradient(
             0.0f to Color(0xFF000000),
             1.0f to Color(0xFF4D4855)
