@@ -10,6 +10,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -28,6 +29,7 @@ import com.example.thisappwillbefunny.utils.UiConst
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
+import coil.compose.AsyncImage
 import com.example.thisappwillbefunny.R
 import com.example.thisappwillbefunny.domain.model.RequestActivityModel
 import com.example.thisappwillbefunny.domain.room.like_activities.LikeActivitiesEntity
@@ -99,12 +101,6 @@ private fun ActivityFragmentsContent(
     var isLoad by remember { mutableStateOf(false) }
     val configuration = LocalConfiguration.current
 
-    val animationSpec by rememberLottieComposition(spec = LottieCompositionSpec.RawRes(R.raw.diy))
-    val progress by animateLottieCompositionAsState(
-        animationSpec,
-        iterations = Integer.MAX_VALUE
-    )
-
 
     Box(
         modifier = Modifier
@@ -116,46 +112,90 @@ private fun ActivityFragmentsContent(
                     }
                 }
             },
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.TopCenter
     ){
 
         if (isLoad) {
+            ConstraintLayout(
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                val (text, img) = createRefs()
+
+                AsyncImage(
+                    model = "https://i.pinimg.com/564x/db/9f/53/db9f532884d79e584d45825b84d090e9.jpg",
+                    contentDescription = null,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .constrainAs(img) { top.linkTo(parent.top) },
+                    contentScale = ContentScale.FillWidth
+                )
+                LargeText(
+                    value = "Find your self activity",
+                    style = MaterialTheme.typography.h4,
+                    modifier = Modifier
+                        .constrainAs(text) {
+                            top.linkTo(parent.top, margin = UiConst.Size.MIN_HEIGHT_CAROUSEL_ITEM)
+                            start.linkTo(parent.start, margin = UiConst.Padding.MEDIUM)
+                        }
+                        .fillMaxWidth(.4f),
+                    fontFamily = null,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.White
+                )
+            }
+
             LazyColumn(
                 modifier = Modifier.fillMaxSize()
             ) {
                 item {
-                    LottieAnimation(
-                        composition = animationSpec,
-                        progress = progress,
-                        alignment = Alignment.Center,
-                        contentScale = ContentScale.FillWidth,
-                        modifier = Modifier
-                            .background(Color.Cyan)
-                            .height(configuration.screenWidthDp.dp)
-                    )
+                    Box(modifier = Modifier
+                        .fillMaxWidth()
+                        .height(configuration.screenWidthDp.dp)
+                        .background(Color.Transparent))
                 }
-                items(viewModel.defaultCountRequest) {element ->
-                    Log.e("ActivityFragmentsContent", viewModel.defaultCountRequest.toString(), )
-
+                item {
                     Box(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(vertical = UiConst.Padding.SMALL)
-                            .clickable { showMoreDetail(viewModel.currentRequest[element]) },
-                        contentAlignment = Alignment.Center,
+                            .defaultMinSize(minHeight = (configuration.screenHeightDp - configuration.screenWidthDp).dp)
+                            .padding(UiConst.Padding.SMALL),
                     ) {
-                        ActivityItem(
-                            modifier = Modifier,
-                            viewModel = viewModel,
-                            index = element
-                        )
+                        Column(
+                            modifier = Modifier
+                                .clip(
+                                    RoundedCornerShape(
+                                        topStart = UiConst.Size.BtnIconSize,
+                                        topEnd = UiConst.Size.BtnIconSize
+                                    )
+                                )
+                                .fillMaxWidth()
+                                .background(Color.Black),
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ){
+                            for (i in 0 until viewModel.defaultCountRequest) {
+                                Box(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(UiConst.Padding.SMALL)
+                                        .clickable { showMoreDetail(viewModel.currentRequest[i]) },
+                                    contentAlignment = Alignment.Center,
+                                ) {
+                                    ActivityItem(
+                                        modifier = Modifier,
+                                        viewModel = viewModel,
+                                        index = i
+                                    )
+                                }
+                            }
+                        }
+
                     }
+
+
                 }
             }
 
-        } else {
-            LoadingFragment()
-        }
+        } else { LoadingFragment() }
 
 
     }
