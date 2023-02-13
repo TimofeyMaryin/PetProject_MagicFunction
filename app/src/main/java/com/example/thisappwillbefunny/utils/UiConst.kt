@@ -166,6 +166,12 @@ object ContentConst {
             val textColor = Color.White
         }
 
+        object Four {
+            const val title = "History"
+            val bg = Brush.horizontalGradient(colorStops = ElConst.threeBgBrush)
+            val textColor = Color.White
+        }
+
     }
 
     private object ElConst {

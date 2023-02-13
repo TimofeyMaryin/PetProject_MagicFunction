@@ -195,7 +195,7 @@ import com.example.thisappwillbefunny.utils.swipeRightToReturn
                 },
                 text = {
                        MediumText(
-                           value = "Bla bla ".repeat(13),
+                           value = "If you delete this item, you will not be able to restore it the next time.",
                            color = Color.LightGray
                        )
                 },

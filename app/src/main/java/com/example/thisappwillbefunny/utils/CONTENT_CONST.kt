@@ -26,7 +26,7 @@ val listOfFeature = listOf(
         R.drawable.avatar_svgrepo
     ),
     FeatureElementModel(
-        ContentConst.ListOfFeature.Three.title,
+        ContentConst.ListOfFeature.Four.title,
         ContentConst.ListOfFeature.Three.bg,
         ContentConst.ListOfFeature.Three.textColor,
         R.drawable.history_svgrepo
