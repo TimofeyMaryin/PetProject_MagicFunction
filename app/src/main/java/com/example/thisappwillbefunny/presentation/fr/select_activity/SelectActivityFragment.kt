@@ -1,5 +1,6 @@
 package com.example.thisappwillbefunny.presentation.fr.select_activity
 
+import android.util.Log
 import androidx.compose.animation.*
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -40,6 +41,7 @@ import com.example.thisappwillbefunny.presentation.ui.elements.text.SmallText
 import com.example.thisappwillbefunny.utils.emptyRequestActivityModel
 import com.example.thisappwillbefunny.utils.makeHorizontalLine
 import com.example.thisappwillbefunny.utils.swipeRightToReturn
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 
@@ -131,30 +133,23 @@ private fun ActivityFragmentsContent(
                         .height(configuration.screenWidthDp.dp)
                 )
             }
-            items(viewModel.defaultCountRequest) {
+            items(viewModel.defaultCountRequest) {element ->
+                Log.e("ActivityFragmentsContent", viewModel.defaultCountRequest.toString(), )
                 if (isLoad) {
-                    var showAnim by remember { mutableStateOf(false) }
-                    AnimatedVisibility(
-                        visible = showAnim,
-                        enter = fadeIn(tween(900)),
-                        exit = fadeOut(tween(900))
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = UiConst.Padding.SMALL)
+                            .clickable { showMoreDetail(viewModel.currentRequest[element]) },
+                        contentAlignment = Alignment.Center,
                     ) {
-                        Box(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(vertical = UiConst.Padding.SMALL)
-                                .clickable { showMoreDetail(viewModel.currentRequest[it]) },
-                            contentAlignment = Alignment.Center,
-                        ) {
-                            ActivityItem(
-                                modifier = Modifier,
-                                viewModel = viewModel,
-                                index = it
-                            )
-                        }
-
+                        ActivityItem(
+                            modifier = Modifier,
+                            viewModel = viewModel,
+                            index = element
+                        )
                     }
-                    showAnim = true
+
                 }
             }
         }
@@ -166,6 +161,11 @@ private fun ActivityFragmentsContent(
         viewModel.currentRequest = viewModel.requestActivity()
         if (viewModel.currentRequest.size == viewModel.defaultCountRequest) {
             isLoad = true
+
+            Log.e("ActivityFragmentsContent", viewModel.showAnim.toString(), )
+            delay(600)
+            viewModel.showAnim = true
+            Log.e("ActivityFragmentsContent", viewModel.showAnim.toString(), )
         }
     })
 }

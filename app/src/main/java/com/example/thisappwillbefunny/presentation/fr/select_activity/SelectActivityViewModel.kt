@@ -32,6 +32,7 @@ class SelectActivityViewModel(
     override fun deleteActivity(activity: LikeActivitiesEntity) = repo.deleteActivity(activity = activity)
 
 
+    var showAnim by mutableStateOf(false)
 
     var defaultCountRequest by mutableStateOf(10)
     var currentRequest by mutableStateOf(listOf(emptyRequestActivityModel))
