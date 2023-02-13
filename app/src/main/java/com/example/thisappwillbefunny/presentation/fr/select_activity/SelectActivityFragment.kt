@@ -108,8 +108,8 @@ private fun ActivityFragmentsContent(
         modifier = Modifier
             .fillMaxSize()
             .swipeRightToReturn {
-                navController.navigate(CHOOSE_ACTIVITY_ROUTE){
-                    popUpTo(SELECT_ACTIVITY_ROUTE){
+                navController.navigate(CHOOSE_ACTIVITY_ROUTE) {
+                    popUpTo(SELECT_ACTIVITY_ROUTE) {
                         inclusive = true
                     }
                 }
@@ -133,19 +133,28 @@ private fun ActivityFragmentsContent(
             }
             items(viewModel.defaultCountRequest) {
                 if (isLoad) {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = UiConst.Padding.SMALL)
-                            .clickable { showMoreDetail(viewModel.currentRequest[it]) },
-                        contentAlignment = Alignment.Center,
+                    var showAnim by remember { mutableStateOf(false) }
+                    AnimatedVisibility(
+                        visible = showAnim,
+                        enter = fadeIn(tween(900)),
+                        exit = fadeOut(tween(900))
                     ) {
-                        ActivityItem(
-                            modifier = Modifier,
-                            viewModel = viewModel,
-                            index = it
-                        )
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(vertical = UiConst.Padding.SMALL)
+                                .clickable { showMoreDetail(viewModel.currentRequest[it]) },
+                            contentAlignment = Alignment.Center,
+                        ) {
+                            ActivityItem(
+                                modifier = Modifier,
+                                viewModel = viewModel,
+                                index = it
+                            )
+                        }
+
                     }
+                    showAnim = true
                 }
             }
         }
@@ -261,7 +270,9 @@ private fun LikeThisActivity(
         Box( modifier = Modifier.makeHorizontalLine())
 
         Row(
-            modifier = Modifier.fillMaxWidth().defaultMinSize(minHeight = UiConst.Size.HEIGHT_BOTTOM_SHEET_EL),
+            modifier = Modifier
+                .fillMaxWidth()
+                .defaultMinSize(minHeight = UiConst.Size.HEIGHT_BOTTOM_SHEET_EL),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
