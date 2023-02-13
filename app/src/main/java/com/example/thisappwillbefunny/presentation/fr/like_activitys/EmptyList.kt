@@ -22,6 +22,7 @@ import com.example.thisappwillbefunny.presentation.navigation.CHOOSE_ACTIVITY_RO
 import com.example.thisappwillbefunny.presentation.navigation.LIKE_ACTIVITY_ROUTE
 import com.example.thisappwillbefunny.presentation.ui.elements.text.LargeText
 import com.example.thisappwillbefunny.utils.UiConst
+import com.example.thisappwillbefunny.utils.createStartFragment
 import com.example.thisappwillbefunny.utils.swipeRightToReturn
 import kotlinx.coroutines.delay
 
@@ -36,18 +37,7 @@ import kotlinx.coroutines.delay
     )
 
     Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(UiConst.Brushes.background)
-            .swipeRightToReturn {
-                navController.navigate(
-                    CHOOSE_ACTIVITY_ROUTE,
-                ) {
-                    popUpTo(LIKE_ACTIVITY_ROUTE) {
-                        inclusive = true
-                    }
-                }
-            },
+        modifier = Modifier.createStartFragment(navController = navController),
         contentAlignment = Alignment.Center,
     ){
         Column(

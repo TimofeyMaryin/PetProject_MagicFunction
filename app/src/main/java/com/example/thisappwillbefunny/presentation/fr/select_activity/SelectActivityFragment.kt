@@ -25,7 +25,6 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import com.airbnb.lottie.compose.*
-import com.example.thisappwillbefunny.utils.UiConst
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
@@ -40,9 +39,7 @@ import com.example.thisappwillbefunny.presentation.ui.elements.Container
 import com.example.thisappwillbefunny.presentation.ui.elements.text.LargeText
 import com.example.thisappwillbefunny.presentation.ui.elements.text.MediumText
 import com.example.thisappwillbefunny.presentation.ui.elements.text.SmallText
-import com.example.thisappwillbefunny.utils.emptyRequestActivityModel
-import com.example.thisappwillbefunny.utils.makeHorizontalLine
-import com.example.thisappwillbefunny.utils.swipeRightToReturn
+import com.example.thisappwillbefunny.utils.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -103,16 +100,7 @@ private fun ActivityFragmentsContent(
 
 
     Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(UiConst.Brushes.background)
-            .swipeRightToReturn {
-                navController.navigate(CHOOSE_ACTIVITY_ROUTE) {
-                    popUpTo(SELECT_ACTIVITY_ROUTE) {
-                        inclusive = true
-                    }
-                }
-            },
+        modifier = Modifier.createStartFragment(navController = navController),
         contentAlignment = Alignment.TopCenter
     ){
 
@@ -196,7 +184,7 @@ private fun ActivityFragmentsContent(
                 }
             }
 
-        } else { LoadingFragment() }
+        } else { LoadingFragment(navController = navController) }
 
 
     }

@@ -8,7 +8,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.navigation.NavController
 import com.example.thisappwillbefunny.presentation.navigation.CHOOSE_ACTIVITY_ROUTE
+import com.example.thisappwillbefunny.presentation.navigation.SELECT_INTERNET_STATUS_ROUTE
 
 fun Modifier.designTip() = this.fillMaxSize().background(Color.Black.copy(.8f))
 fun Modifier.makeHorizontalLine() = this.fillMaxWidth().height(UiConst.Size.LINE_HEIGHT).background(Color.Gray)
@@ -33,3 +35,15 @@ fun Modifier.createButton(action: () -> Unit) = this
 
 
 fun Modifier.createHorizontalLine() = this.fillMaxWidth().height(UiConst.Size.LINE_HEIGHT).background(Color.Gray)
+
+fun Modifier.createStartFragment(navController: NavController) =
+    this
+        .background(UiConst.Brushes.background)
+        .fillMaxSize()
+        .swipeRightToReturn {
+            navController.navigate(CHOOSE_ACTIVITY_ROUTE){
+                popUpTo(SELECT_INTERNET_STATUS_ROUTE){
+                    inclusive = true
+                }
+            }
+        }

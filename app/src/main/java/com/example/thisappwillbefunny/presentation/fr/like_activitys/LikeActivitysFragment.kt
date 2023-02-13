@@ -30,6 +30,7 @@ import com.example.thisappwillbefunny.presentation.ui.elements.text.LargeText
 import com.example.thisappwillbefunny.presentation.ui.elements.text.MediumText
 import com.example.thisappwillbefunny.utils.UiConst
 import com.example.thisappwillbefunny.utils.createButton
+import com.example.thisappwillbefunny.utils.createStartFragment
 import com.example.thisappwillbefunny.utils.swipeRightToReturn
 
 
@@ -67,16 +68,7 @@ import com.example.thisappwillbefunny.utils.swipeRightToReturn
     onDeleteElement: (LikeActivitiesEntity) -> Unit
 ) {
     LazyColumn(
-        modifier = Modifier
-            .background(UiConst.Brushes.background)
-            .fillMaxSize()
-            .swipeRightToReturn {
-                navController.navigate(CHOOSE_ACTIVITY_ROUTE) {
-                    popUpTo(LIKE_ACTIVITY_ROUTE) {
-                        inclusive = true
-                    }
-                }
-            }
+        modifier = Modifier.createStartFragment(navController = navController)
     ) {
         item {
             // TODO(This will be header)

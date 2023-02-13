@@ -28,6 +28,7 @@ import com.example.thisappwillbefunny.presentation.navigation.GET_RANDOM_CAT_ROU
 import com.example.thisappwillbefunny.presentation.navigation.SELECT_ACTIVITY_ROUTE
 import com.example.thisappwillbefunny.presentation.ui.elements.AppButton
 import com.example.thisappwillbefunny.utils.UiConst
+import com.example.thisappwillbefunny.utils.createStartFragment
 import com.example.thisappwillbefunny.utils.swipeRightToReturn
 
 @Composable
@@ -39,16 +40,7 @@ fun GetRandomCatFragment(
 
     val context = LocalContext.current
     ConstraintLayout(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(UiConst.Brushes.background)
-            .swipeRightToReturn {
-                navController.navigate(CHOOSE_ACTIVITY_ROUTE) {
-                    popUpTo(GET_RANDOM_CAT_ROUTE) {
-                        inclusive = true
-                    }
-                }
-            }
+        modifier = Modifier.createStartFragment(navController = navController)
     ) {
         val (image, buttonPlace, tips) = createRefs()
 

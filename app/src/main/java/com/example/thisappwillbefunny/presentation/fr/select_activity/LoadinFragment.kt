@@ -13,6 +13,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.navigation.NavController
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
@@ -20,11 +21,12 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.thisappwillbefunny.R
 import com.example.thisappwillbefunny.presentation.ui.elements.text.LargeText
 import com.example.thisappwillbefunny.utils.UiConst
+import com.example.thisappwillbefunny.utils.createStartFragment
 
 
-@Composable fun LoadingFragment() {
+@Composable fun LoadingFragment(navController: NavController) {
     Box(
-        modifier = Modifier.fillMaxSize().background(UiConst.Brushes.background),
+        modifier = Modifier.createStartFragment(navController = navController),
         contentAlignment = Alignment.Center
     ) {
         LoadingFragmentContent()

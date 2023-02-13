@@ -49,6 +49,7 @@ import com.example.thisappwillbefunny.presentation.ui.elements.text.MediumText
 import com.example.thisappwillbefunny.presentation.ui.elements.text.SmallText
 import com.example.thisappwillbefunny.presentation.ui.font.Raleway
 import com.example.thisappwillbefunny.utils.UiConst
+import com.example.thisappwillbefunny.utils.createStartFragment
 import com.example.thisappwillbefunny.utils.listOfTipsInternetStatus
 import com.example.thisappwillbefunny.utils.swipeRightToReturn
 import kotlinx.coroutines.delay
@@ -61,16 +62,7 @@ fun SelectInternetStatusFragment(
     navController: NavController
 ) {
     ConstraintLayout(
-        modifier = Modifier
-            .background(UiConst.Brushes.background)
-            .fillMaxSize()
-            .swipeRightToReturn {
-                navController.navigate(CHOOSE_ACTIVITY_ROUTE){
-                    popUpTo(SELECT_INTERNET_STATUS_ROUTE){
-                        inclusive = true
-                    }
-                }
-            }
+        modifier = Modifier.createStartFragment(navController = navController)
     ) {
         val (content, topBar, tips) = createRefs()
         var showFullSizeImage by remember { mutableStateOf(false) }
