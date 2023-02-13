@@ -70,6 +70,10 @@ object UiConst {
             0.0f to Color(0xFF28313B),
             1.0f to Color(0xFF485461)
         )
+        val bgActivityItems = Brush.linearGradient(
+            0.0f to Color(0xFF000000),
+            1.0f to Color(0xFF130F40)
+        )
 
         val MainFragmentElement = Brush.linearGradient(
             0.0f to Color(0xFF000000),

@@ -129,19 +129,6 @@ private fun ActivityFragmentsContent(
                     isAnimate = isAnimateTitle
                 )
 
-//                LargeText(
-//                    value = "Find your self activity",
-//                    style = MaterialTheme.typography.h4,
-//                    modifier = Modifier
-//                        .constrainAs(text) {
-//                            top.linkTo(parent.top, margin = UiConst.Size.MIN_HEIGHT_CAROUSEL_ITEM)
-//                            start.linkTo(parent.start, margin = UiConst.Padding.MEDIUM)
-//                        }
-//                        .fillMaxWidth(.4f),
-//                    fontFamily = null,
-//                    fontWeight = FontWeight.Bold,
-//                    color = Color.White
-//                )
             }
 
             LazyColumn(
@@ -169,7 +156,7 @@ private fun ActivityFragmentsContent(
                                     )
                                 )
                                 .fillMaxWidth()
-                                .background(Color.Black),
+                                .background(UiConst.Brushes.bgActivityItems),
                             horizontalAlignment = Alignment.CenterHorizontally
                         ){
                             for (i in 0 until viewModel.defaultCountRequest) {
