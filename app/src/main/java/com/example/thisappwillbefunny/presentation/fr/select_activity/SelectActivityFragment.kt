@@ -115,9 +115,9 @@ private fun ActivityFragmentsContent(
                     model = "https://i.pinimg.com/564x/db/9f/53/db9f532884d79e584d45825b84d090e9.jpg",
                     contentDescription = null,
                     modifier = Modifier
-                        .fillMaxWidth()
+                        .fillMaxSize()
                         .constrainAs(img) { top.linkTo(parent.top) },
-                    contentScale = ContentScale.FillWidth
+                    contentScale = ContentScale.FillBounds
                 )
                 AnimateTitleText(
                     modifier = Modifier
@@ -220,11 +220,11 @@ private fun AnimateTitleText(
     ) {
         AnimatedVisibility(
             visible = isAnimate,
-            enter = slideInVertically(tween(800)) + fadeIn(tween(800))
+            enter = slideInVertically(tween(1200)) + fadeIn(tween(1200))
         ) {
             LargeText(
                 value = "Find",
-                style = MaterialTheme.typography.h4,
+                style = MaterialTheme.typography.h3,
                 fontFamily = null,
                 fontWeight = FontWeight.Bold,
                 color = Color.White
@@ -233,11 +233,11 @@ private fun AnimateTitleText(
 
         AnimatedVisibility(
             visible = isAnimate,
-            enter = slideInVertically(tween(600)) + fadeIn(tween(800))
+            enter = slideInVertically(tween(1000)) + fadeIn(tween(1200))
         ) {
             LargeText(
                 value = "your",
-                style = MaterialTheme.typography.h4,
+                style = MaterialTheme.typography.h3,
                 fontFamily = null,
                 fontWeight = FontWeight.Bold,
                 color = Color.White
@@ -245,11 +245,11 @@ private fun AnimateTitleText(
         }
         AnimatedVisibility(
             visible = isAnimate,
-            enter = slideInVertically(tween(400)) + fadeIn(tween(800))
+            enter = slideInVertically(tween(800)) + fadeIn(tween(1200))
         ) {
             LargeText(
                 value = "activity",
-                style = MaterialTheme.typography.h4,
+                style = MaterialTheme.typography.h3,
                 fontFamily = null,
                 fontWeight = FontWeight.Bold,
                 color = Color.White

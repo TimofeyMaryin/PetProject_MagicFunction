@@ -26,7 +26,6 @@ fun ShowImageFullSize(
     viewModel: SelectInternetStatusViewModel,
     onBack: () -> Unit,
 ) {
-    var isShowTips by remember { mutableStateOf(false) }
     val context = LocalContext.current
 
 
@@ -84,12 +83,6 @@ fun ShowImageFullSize(
                 )
             }
 
-            if (!isShowTips) {
-
-                TipSwipeVertical{
-                    isShowTips = !isShowTips
-                }
-            }
 
         }
 
