@@ -1,5 +1,6 @@
 package com.example.thisappwillbefunny.presentation.fr.like_activitys
 
+import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
@@ -36,17 +37,34 @@ import com.example.thisappwillbefunny.utils.swipeRightToReturn
     navController: NavController,
     viewModel: LikeActivitiesViewModel
 ) {
-    if (viewModel.repo.getLikedActivities().size != 0) {
-        LoadContent(navController = navController, viewModel = viewModel)
+
+
+    var recompose by remember { mutableStateOf(0) }
+    var allLikeEl = remember { viewModel.repo.getLikedActivities() }
+
+    if (viewModel.repo.getLikedActivities().isNotEmpty()) {
+        LoadContent(
+            navController = navController,
+            viewModel = viewModel,
+            allEl = allLikeEl,
+            onDeleteElement = { allLikeEl.remove(it); recompose++ }
+        )
     } else {
         EmptyListFragment(navController = navController)
     }
+
+
+    LaunchedEffect(key1 = recompose, block = {
+        allLikeEl = viewModel.repo.getLikedActivities()
+    })
 
 }
 
 @Composable private fun LoadContent(
     navController: NavController,
-    viewModel: LikeActivitiesViewModel
+    viewModel: LikeActivitiesViewModel,
+    allEl: MutableList<LikeActivitiesEntity>,
+    onDeleteElement: (LikeActivitiesEntity) -> Unit
 ) {
     LazyColumn(
         modifier = Modifier
@@ -62,7 +80,7 @@ import com.example.thisappwillbefunny.utils.swipeRightToReturn
         item {
             // TODO(This will be header)
         }
-        items(viewModel.repo.getLikedActivities().size) {
+        items(allEl.size) {
             var isShow by remember { mutableStateOf(false) }
 
             AnimatedVisibility(
@@ -70,8 +88,9 @@ import com.example.thisappwillbefunny.utils.swipeRightToReturn
                 enter = slideInVertically(tween(1000)) + fadeIn(tween(1000))
             ) {
                 LikedElement(
-                    element = viewModel.repo.getLikedActivities()[it],
-                    viewModel = viewModel
+                    element = allEl[it],
+                    viewModel = viewModel,
+                    onDeleteElement = onDeleteElement
                 )
             }
 
@@ -83,7 +102,8 @@ import com.example.thisappwillbefunny.utils.swipeRightToReturn
 
 @Composable private fun LikedElement(
     element: LikeActivitiesEntity,
-    viewModel: LikeActivitiesViewModel
+    viewModel: LikeActivitiesViewModel,
+    onDeleteElement: (LikeActivitiesEntity) -> Unit
 ) {
     Box(
         modifier = Modifier
@@ -93,7 +113,8 @@ import com.example.thisappwillbefunny.utils.swipeRightToReturn
     ){
         LikedContent(
             element,
-            viewModel = viewModel
+            viewModel = viewModel,
+            onDeleteElement = onDeleteElement
         )
     }
 }
@@ -102,9 +123,11 @@ import com.example.thisappwillbefunny.utils.swipeRightToReturn
 @Composable private fun LikedContent(
     element: LikeActivitiesEntity,
     viewModel: LikeActivitiesViewModel,
+    onDeleteElement: (LikeActivitiesEntity) -> Unit
 ) {
     var openDialog by remember { mutableStateOf(false) }
     val currentElement by remember { mutableStateOf(viewModel.activityInfoRepo) }
+
     Row(
         Modifier
             .fillMaxWidth()
@@ -185,7 +208,12 @@ import com.example.thisappwillbefunny.utils.swipeRightToReturn
                 },
                 buttons = {
                     AlertButtonPlace(
-                        onDelete = { viewModel.repo.deleteActivity(element); openDialog = false},
+                        onDelete = {
+                            viewModel.repo.deleteActivity(element)
+                            onDeleteElement(element)
+                            openDialog = false
+                            Log.e("LikedContent:", viewModel.repo.getLikedActivities().size.toString(), )
+                        },
                         onCancel = { openDialog = false }
                     )
                 },
