@@ -16,6 +16,10 @@ import androidx.navigation.NavController
 import coil.compose.AsyncImagePainter
 import coil.compose.SubcomposeAsyncImage
 import coil.compose.SubcomposeAsyncImageContent
+import com.airbnb.lottie.compose.LottieAnimation
+import com.airbnb.lottie.compose.LottieCompositionSpec
+import com.airbnb.lottie.compose.animateLottieCompositionAsState
+import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.thisappwillbefunny.R
 import com.example.thisappwillbefunny.presentation.MainActivity
 import com.example.thisappwillbefunny.presentation.fr.tip_swipe.TipSwipeRight
@@ -49,6 +53,11 @@ fun GetRandomCatFragment(
 
         var result by remember { mutableStateOf("") }
         var changeImage by remember { mutableStateOf(1L) }
+        val composition by rememberLottieComposition(spec = LottieCompositionSpec.RawRes(R.raw.loading))
+        val progress by animateLottieCompositionAsState(
+            composition = composition,
+            iterations = Int.MAX_VALUE
+        )
 
 
         SubcomposeAsyncImage(
@@ -63,7 +72,13 @@ fun GetRandomCatFragment(
         ) {
             val state = painter.state
             if (state is AsyncImagePainter.State.Loading || state is AsyncImagePainter.State.Error) {
-                CircularProgressIndicator()
+                LottieAnimation(
+                    composition = composition,
+                    progress = progress,
+                    alignment = Alignment.Center,
+                    modifier = Modifier.height(UiConst.Size.WIDTH_TIP_EL)
+                )
+                
             } else {
                 SubcomposeAsyncImageContent(
                     modifier = Modifier
