@@ -97,6 +97,7 @@ private fun ActivityFragmentsContent(
 
     var isLoad by remember { mutableStateOf(false) }
     val configuration = LocalConfiguration.current
+    var isAnimateTitle by remember { mutableStateOf(false) }
 
 
     Box(
@@ -118,19 +119,29 @@ private fun ActivityFragmentsContent(
                         .constrainAs(img) { top.linkTo(parent.top) },
                     contentScale = ContentScale.FillWidth
                 )
-                LargeText(
-                    value = "Find your self activity",
-                    style = MaterialTheme.typography.h4,
+                AnimateTitleText(
                     modifier = Modifier
+                        .fillMaxWidth(.4f)
                         .constrainAs(text) {
                             top.linkTo(parent.top, margin = UiConst.Size.MIN_HEIGHT_CAROUSEL_ITEM)
                             start.linkTo(parent.start, margin = UiConst.Padding.MEDIUM)
-                        }
-                        .fillMaxWidth(.4f),
-                    fontFamily = null,
-                    fontWeight = FontWeight.Bold,
-                    color = Color.White
+                        },
+                    isAnimate = isAnimateTitle
                 )
+
+//                LargeText(
+//                    value = "Find your self activity",
+//                    style = MaterialTheme.typography.h4,
+//                    modifier = Modifier
+//                        .constrainAs(text) {
+//                            top.linkTo(parent.top, margin = UiConst.Size.MIN_HEIGHT_CAROUSEL_ITEM)
+//                            start.linkTo(parent.start, margin = UiConst.Padding.MEDIUM)
+//                        }
+//                        .fillMaxWidth(.4f),
+//                    fontFamily = null,
+//                    fontWeight = FontWeight.Bold,
+//                    color = Color.White
+//                )
             }
 
             LazyColumn(
@@ -183,7 +194,9 @@ private fun ActivityFragmentsContent(
 
                 }
                 item {
-                    Box(modifier = Modifier.fillMaxWidth().height(UiConst.Size.HEIGHT_FEATURE_EL))
+                    Box(modifier = Modifier
+                        .fillMaxWidth()
+                        .height(UiConst.Size.HEIGHT_FEATURE_EL))
                 }
             }
 
@@ -195,17 +208,68 @@ private fun ActivityFragmentsContent(
 
     LaunchedEffect(key1 = Unit, block = {
         viewModel.currentRequest = viewModel.requestActivity()
+
         if (viewModel.currentRequest.size == viewModel.defaultCountRequest) {
             isLoad = true
 
             Log.e("ActivityFragmentsContent", viewModel.showAnim.toString(), )
             delay(600)
             viewModel.showAnim = true
+            isAnimateTitle = true
             Log.e("ActivityFragmentsContent", viewModel.showAnim.toString(), )
         }
     })
 }
 
+@Composable
+private fun AnimateTitleText(
+    modifier: Modifier,
+    isAnimate: Boolean,
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .then(modifier)
+    ) {
+        AnimatedVisibility(
+            visible = isAnimate,
+            enter = slideInVertically(tween(800)) + fadeIn(tween(800))
+        ) {
+            LargeText(
+                value = "Find",
+                style = MaterialTheme.typography.h4,
+                fontFamily = null,
+                fontWeight = FontWeight.Bold,
+                color = Color.White
+            )
+        }
+
+        AnimatedVisibility(
+            visible = isAnimate,
+            enter = slideInVertically(tween(600)) + fadeIn(tween(800))
+        ) {
+            LargeText(
+                value = "your",
+                style = MaterialTheme.typography.h4,
+                fontFamily = null,
+                fontWeight = FontWeight.Bold,
+                color = Color.White
+            )
+        }
+        AnimatedVisibility(
+            visible = isAnimate,
+            enter = slideInVertically(tween(400)) + fadeIn(tween(800))
+        ) {
+            LargeText(
+                value = "activity",
+                style = MaterialTheme.typography.h4,
+                fontFamily = null,
+                fontWeight = FontWeight.Bold,
+                color = Color.White
+            )
+        }
+    }
+}
 
 
 @Composable
