@@ -105,6 +105,7 @@ private fun ActivityFragmentsContent(
     Box(
         modifier = Modifier
             .fillMaxSize()
+            .background(UiConst.Brushes.background)
             .swipeRightToReturn {
                 navController.navigate(CHOOSE_ACTIVITY_ROUTE) {
                     popUpTo(SELECT_ACTIVITY_ROUTE) {

@@ -68,7 +68,8 @@ import com.example.thisappwillbefunny.utils.swipeRightToReturn
 ) {
     LazyColumn(
         modifier = Modifier
-            .fillMaxWidth()
+            .background(UiConst.Brushes.background)
+            .fillMaxSize()
             .swipeRightToReturn {
                 navController.navigate(CHOOSE_ACTIVITY_ROUTE) {
                     popUpTo(LIKE_ACTIVITY_ROUTE) {

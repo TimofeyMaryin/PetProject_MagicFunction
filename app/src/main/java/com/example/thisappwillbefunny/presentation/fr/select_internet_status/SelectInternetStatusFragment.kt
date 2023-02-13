@@ -62,6 +62,7 @@ fun SelectInternetStatusFragment(
 ) {
     ConstraintLayout(
         modifier = Modifier
+            .background(UiConst.Brushes.background)
             .fillMaxSize()
             .swipeRightToReturn {
                 navController.navigate(CHOOSE_ACTIVITY_ROUTE){

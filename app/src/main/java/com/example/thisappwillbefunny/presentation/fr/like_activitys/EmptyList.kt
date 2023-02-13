@@ -38,6 +38,7 @@ import kotlinx.coroutines.delay
     Box(
         modifier = Modifier
             .fillMaxSize()
+            .background(UiConst.Brushes.background)
             .swipeRightToReturn {
                 navController.navigate(
                     CHOOSE_ACTIVITY_ROUTE,

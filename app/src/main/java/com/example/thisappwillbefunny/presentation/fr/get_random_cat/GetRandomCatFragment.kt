@@ -41,6 +41,7 @@ fun GetRandomCatFragment(
     ConstraintLayout(
         modifier = Modifier
             .fillMaxSize()
+            .background(UiConst.Brushes.background)
             .swipeRightToReturn {
                 navController.navigate(CHOOSE_ACTIVITY_ROUTE) {
                     popUpTo(GET_RANDOM_CAT_ROUTE) {
@@ -78,7 +79,7 @@ fun GetRandomCatFragment(
                     alignment = Alignment.Center,
                     modifier = Modifier.height(UiConst.Size.WIDTH_TIP_EL)
                 )
-                
+
             } else {
                 SubcomposeAsyncImageContent(
                     modifier = Modifier

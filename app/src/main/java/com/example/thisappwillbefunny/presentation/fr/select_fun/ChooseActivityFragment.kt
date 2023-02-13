@@ -34,7 +34,7 @@ fun ChooseActivityFragment(
     viewModel: ChooseActivityViewModel
 ) {
     ConstraintLayout(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize().background(UiConst.Brushes.background)
     ) {
         val (bottomBar) = createRefs()
 
@@ -49,16 +49,6 @@ fun ChooseActivityFragment(
         )
 
 
-
-//        ExitButton(
-//            modifier = Modifier.constrainAs(exitButton) {
-//                top.linkTo(parent.top, margin = UiConst.Padding.BETWEEN_ELEMENT)
-//                end.linkTo(parent.end, margin = UiConst.Padding.MEDIUM)
-//            },
-//        ) {
-//            android.os.Process.killProcess(android.os.Process.myPid())
-//            exitProcess(1)
-//        }
 
 
     }
