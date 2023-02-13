@@ -91,7 +91,7 @@ fun GetRandomCatFragment(
 
         BottomButtonPlace(
             modifier = Modifier.constrainAs(buttonPlace) {
-                bottom.linkTo(parent.bottom)
+                bottom.linkTo(parent.bottom, margin = UiConst.Size.EXIT_BUTTON)
             },
             onReload = { changeImage++ },
             onDownload = {

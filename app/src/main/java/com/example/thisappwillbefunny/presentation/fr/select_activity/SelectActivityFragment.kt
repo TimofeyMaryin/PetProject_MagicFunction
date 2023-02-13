@@ -182,6 +182,9 @@ private fun ActivityFragmentsContent(
 
 
                 }
+                item {
+                    Box(modifier = Modifier.fillMaxWidth().height(UiConst.Size.HEIGHT_FEATURE_EL))
+                }
             }
 
         } else { LoadingFragment(navController = navController) }
